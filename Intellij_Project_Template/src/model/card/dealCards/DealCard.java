@@ -13,6 +13,12 @@ public class DealCard implements Card {
     private final int BuyPrice;
     private final int sellPrice;
 
+    /**
+     * Create a new deal card instance
+     * @param amount deal cards offer
+     * @param original_amount original price
+     */
+
     public DealCard(int amount, int original_amount)
     {
         this.BuyPrice = amount;
