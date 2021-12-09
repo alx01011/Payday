@@ -34,6 +34,7 @@ public class Dice
 
     /**
      * Randomly selects a number between 1 and 6 for the dice
+     * @type Transformer
      */
 
     public void rollDice()
