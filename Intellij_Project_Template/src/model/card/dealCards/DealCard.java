@@ -25,9 +25,24 @@ public class DealCard implements Card {
         this.sellPrice = original_amount;
     }
 
+    /**
+     * Returns the deal cards price offer
+     * @return price offer
+     */
+
     @Override
     public int getValue() {
         return BuyPrice;
+    }
+
+    /**
+     * Returns the sell price of the offer
+     * @return sell price
+     */
+
+    public int getSellPrice()
+    {
+        return sellPrice;
     }
 
 }
