@@ -1,6 +1,10 @@
 package view;
 
+import model.card.dealCards.DealCard;
+import model.card.messageCards.MessageCard;
+
 import javax.swing.*;
+import java.util.ArrayList;
 
 /**
  * Payday GUI
@@ -11,17 +15,40 @@ import javax.swing.*;
 public class GraphicsUI
 {
     JFrame frame;
+    JPanel board;
     JPanel p1;
     JPanel p2;
     JMenu menu;
     JMenuBar menu_bar;
+    final MessageCard [] msg  = new MessageCard[48]; // 48 message cards
+    final DealCard    [] deal = new DealCard[20]; // 20 deal cards
 
     /**
-     * Creates a new window and adds buttons and panels
+     * Creates a new window and adds buttons and panels for the players and board
      * @type Constructor
      */
 
     public GraphicsUI()
+    {
+
+    }
+
+    /**
+     * Initializes the global frame, panels and menu fields
+     * @type transformer
+     */
+
+    private void initialize_fields()
+    {
+
+    }
+
+    /**
+     * Initializes the deal and message cards per game
+     * @type transformer
+     */
+
+    private void initialize_cards()
     {
 
     }
