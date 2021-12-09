@@ -2,6 +2,12 @@ package model.card.messageCards;
 
 import model.card.Card;
 
+/**
+ * Mail card
+ * @version 1.0
+ * @author Alexandros Antonakakis (csd4802)
+ */
+
 public class MailCard implements Card
 {
     private int amount;
@@ -20,20 +26,11 @@ public class MailCard implements Card
      */
 
     @Override
-    public int getAmount()
+    public int getValue()
     {
         return amount;
     }
 
-    /**
-     * Sets a new value for amount
-     * @type Transformer
-     */
-
-    @Override
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
 
     @Override
     public String toString()

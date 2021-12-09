@@ -1,10 +1,24 @@
 package model.card;
 
+/**
+ * Card interface
+ * @version 1.0
+ * @author Alexandros Antonakakis (csd4802)
+ */
+
 public interface Card
 {
-    int getAmount();
+    /**
+     * Returns the cards value (price)
+     * @return value
+     */
 
-    void setAmount(int amount);
+    int getValue();
+
+    /**
+     * prints out the cards kind
+     * @return card type
+     */
 
     @Override
     String toString();

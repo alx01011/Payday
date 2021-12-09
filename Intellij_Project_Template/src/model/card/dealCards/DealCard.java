@@ -2,24 +2,26 @@ package model.card.dealCards;
 
 import model.card.Card;
 
+/**
+ * Deal card
+ * @version 1.0
+ * @author Alexandros Antonakakis (csd4802)
+ */
+
 public class DealCard implements Card {
 
-    private int amount;
-    private int original_amount;
+    private final int BuyPrice;
+    private final int sellPrice;
 
     public DealCard(int amount, int original_amount)
     {
-        this.amount = amount;
-        this.original_amount = original_amount;
+        this.BuyPrice = amount;
+        this.sellPrice = original_amount;
     }
 
     @Override
-    public int getAmount() {
-        return amount;
+    public int getValue() {
+        return BuyPrice;
     }
 
-    @Override
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
 }
