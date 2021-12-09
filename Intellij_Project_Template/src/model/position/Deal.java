@@ -2,6 +2,12 @@ package model.position;
 
 import enums.Days;
 
+/**
+ * Deal position
+ * @version 1.0
+ * @author Alexandros Antonakakis (csd4802)
+ */
+
 public class Deal extends Position{
 
     /**

@@ -2,6 +2,12 @@ package model.position;
 
 import enums.Days;
 
+/**
+ * Lottery position
+ * @version 1.0
+ * @author Alexandros Antonakakis (csd4802)
+ */
+
 public class Lottery extends Position{
     /**
      * Creates a new lottery position instance

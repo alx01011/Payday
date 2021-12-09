@@ -3,23 +3,23 @@ package model.position;
 import enums.Days;
 
 /**
- * Sweepstakes position
+ * RadioContest position
  * @version 1.0
  * @author Alexandros Antonakakis (csd4802)
  */
 
-public class Sweepstakes extends Position
+public class RadioContest extends Position
 {
-
     /**
-     * Creates a new Sweepstake position instance
+     * Creates a new radio contest position instance
      *
      * @param day      position day
      * @param imageURL image location
      * @param index    position on the board
      * @type Constructor
      */
-    public Sweepstakes(Days day, String imageURL, int index) {
+
+    public RadioContest(Days day, String imageURL, int index) {
         super(day, imageURL, index);
     }
 }
