@@ -4,7 +4,6 @@ import model.card.dealCards.DealCard;
 import model.card.messageCards.MessageCard;
 
 import javax.swing.*;
-import java.util.ArrayList;
 
 /**
  * Payday GUI
