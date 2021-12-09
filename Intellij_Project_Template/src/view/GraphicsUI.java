@@ -4,6 +4,7 @@ import model.card.dealCards.DealCard;
 import model.card.messageCards.MailCard;
 
 import javax.swing.*;
+import java.util.LinkedList;
 
 /**
  * Payday GUI
@@ -19,11 +20,9 @@ public class GraphicsUI
     JPanel p2;
     JMenu menu;
     JMenuBar menu_bar;
-    final MailCard[] msg  = new MailCard[48]; // 48 message cards
-    final DealCard    [] deal = new DealCard[20]; // 20 deal cards
 
     /**
-     * Creates a new window and adds buttons and panels for the players and board
+     * Creates a new window and adds buttons and panels for the players and board also starts the game
      * @type Constructor
      */
 
@@ -34,7 +33,7 @@ public class GraphicsUI
 
     /**
      * Initializes the global frame, panels and menu fields
-     * @type transformer
+     * @type Transformer
      */
 
     private void initialize_fields()
@@ -42,12 +41,23 @@ public class GraphicsUI
 
     }
 
+
     /**
-     * Initializes the deal and message cards per game
-     * @type transformer
+     * Creates panels for the players
+     * @type Transformer
      */
 
-    private void initialize_cards()
+    private void create_player_panels()
+    {
+
+    }
+
+    /**
+     * Starts a new game
+     * @type Transformer
+     */
+
+    private void init_session()
     {
 
     }
