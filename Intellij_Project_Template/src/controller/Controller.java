@@ -22,9 +22,9 @@ public class Controller
     public Player p2;
     public Player turn;
     public int months_left;
-    public LinkedList<Card> cardStack;
-    public LinkedList<Card> rejectedCardStack;
-    public ArrayList<Position> positions;
+    public final LinkedList<Card> cardStack;
+    public final LinkedList<Card> rejectedCardStack;
+    public final ArrayList<Position> positions;
 
 
     /**
@@ -36,6 +36,10 @@ public class Controller
     {
         p1 = new Player("PLAYER 1");
         p2 = new Player("PLAYER 2");
+
+        positions = new ArrayList<>();
+        cardStack = new LinkedList<>();
+        rejectedCardStack = new LinkedList<>();
 
         // prompt for the months to be played
 
@@ -54,8 +58,6 @@ public class Controller
 
     private void init_cardStacks()
     {
-        cardStack = new LinkedList<>();
-        rejectedCardStack = new LinkedList<>();
 
         // add all the cards in the game in the stack
     }
@@ -67,7 +69,7 @@ public class Controller
 
     private void init_board()
     {
-        positions = new ArrayList<>();
+
 
         // add all the possible positions on the arraylist
 
