@@ -6,7 +6,7 @@ package model.card.messageCards;
  * @author Alexandros Antonakakis (csd4802)
  */
 
-public class Advertisement extends MessageCard
+public class Advertisement extends MailCard
 {
     /**
      * Create a new advertisement card

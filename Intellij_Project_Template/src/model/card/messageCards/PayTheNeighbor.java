@@ -6,7 +6,7 @@ package model.card.messageCards;
  * @author Alexandros Antonakakis (csd4802)
  */
 
-public class PayTheNeighbor extends MessageCard{
+public class PayTheNeighbor extends MailCard {
 
     /**
      * Create a new PayTheNeighbor card

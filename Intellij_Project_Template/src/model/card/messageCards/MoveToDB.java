@@ -6,7 +6,7 @@ package model.card.messageCards;
  * @author Alexandros Antonakakis (csd4802)
  */
 
-public class MoveToDB extends MessageCard{
+public class MoveToDB extends MailCard {
 
     /**
      * Create a new move to Deal/Buyer card

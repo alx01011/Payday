@@ -1,7 +1,7 @@
 package view;
 
 import model.card.dealCards.DealCard;
-import model.card.messageCards.MessageCard;
+import model.card.messageCards.MailCard;
 
 import javax.swing.*;
 
@@ -19,7 +19,7 @@ public class GraphicsUI
     JPanel p2;
     JMenu menu;
     JMenuBar menu_bar;
-    final MessageCard [] msg  = new MessageCard[48]; // 48 message cards
+    final MailCard[] msg  = new MailCard[48]; // 48 message cards
     final DealCard    [] deal = new DealCard[20]; // 20 deal cards
 
     /**

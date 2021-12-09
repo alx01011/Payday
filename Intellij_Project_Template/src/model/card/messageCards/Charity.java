@@ -7,7 +7,7 @@ package model.card.messageCards;
  */
 
 
-public class Charity extends MessageCard{
+public class Charity extends MailCard {
 
 
     /**

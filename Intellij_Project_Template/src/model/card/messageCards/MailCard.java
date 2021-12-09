@@ -2,12 +2,12 @@ package model.card.messageCards;
 
 import model.card.Card;
 
-public class MessageCard implements Card
+public class MailCard implements Card
 {
     private int amount;
     private String type;
 
-    public MessageCard(int amount, String type)
+    public MailCard(int amount, String type)
     {
         this.amount = amount;
         this.type = type;
@@ -38,6 +38,6 @@ public class MessageCard implements Card
     @Override
     public String toString()
     {
-        return "Card " + type;
+        return "MailCard";
     }
 }
