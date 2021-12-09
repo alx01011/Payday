@@ -16,6 +16,7 @@ public class Player
 
     /**
      * Create a new instance of player and initializes some values
+     * @type Constructor
      * @param name players callsign
      */
 
@@ -61,6 +62,7 @@ public class Player
 
     /**
      * Returns the bank balance
+     * @type Accessor
      * @return bank balance
      */
 
@@ -70,6 +72,7 @@ public class Player
 
     /**
      * Updates bank balance
+     * @type Transformer
      * @param bank_balance new bank balance
      */
 
@@ -79,6 +82,7 @@ public class Player
 
     /**
      * Returns the loan amount owed
+     * @type Accessor
      * @return loan
      */
 
@@ -88,6 +92,7 @@ public class Player
 
     /**
      * Sets a new loan amount
+     * @type Transformer
      * @param loans new loan amount
      */
 
@@ -97,6 +102,7 @@ public class Player
 
     /**
      * Returns the bill money owed by the player
+     * @type Accessor
      * @return bill due
      */
 
@@ -106,6 +112,7 @@ public class Player
 
     /**
      * Updates the bill money owed by the player
+     * @type Transformer
      * @param due new bills due
      */
 
