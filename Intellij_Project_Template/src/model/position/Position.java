@@ -12,7 +12,7 @@ public abstract class Position
 {
     private final Days day;
     private final String imageURL;
-    private final int index;
+    private final int day_index;
 
 
     /**
@@ -20,14 +20,14 @@ public abstract class Position
      * @type Constructor
      * @param day position day
      * @param imageURL image location
-     * @param index position on the board
+     * @param day_index position on the board
      */
 
-    public Position(Days day, String imageURL, int index)
+    public Position(Days day, String imageURL, int day_index)
     {
         this.day = day;
         this.imageURL = imageURL;
-        this.index = index;
+        this.day_index = day_index;
 
     }
 
@@ -56,8 +56,8 @@ public abstract class Position
      * @return index
      */
 
-    public int getIndex() {
-        return index;
+    public int getDay_index() {
+        return day_index;
     }
 
 
