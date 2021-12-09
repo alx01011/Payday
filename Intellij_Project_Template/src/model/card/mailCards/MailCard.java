@@ -1,4 +1,4 @@
-package model.card.messageCards;
+package model.card.mailCards;
 
 import model.card.Card;
 

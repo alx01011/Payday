@@ -1,4 +1,4 @@
-package model.card.messageCards;
+package model.card.mailCards;
 
 /**
  * Pay the bank the given amount at the end of the month card

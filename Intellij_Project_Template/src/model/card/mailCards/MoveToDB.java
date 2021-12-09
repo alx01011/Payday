@@ -1,4 +1,4 @@
-package model.card.messageCards;
+package model.card.mailCards;
 
 /**
  * Move to the next Deal/Buyer square

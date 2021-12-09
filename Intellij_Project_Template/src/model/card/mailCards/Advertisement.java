@@ -1,4 +1,4 @@
-package model.card.messageCards;
+package model.card.mailCards;
 
 /**
  * Sell the ad card for the given amount

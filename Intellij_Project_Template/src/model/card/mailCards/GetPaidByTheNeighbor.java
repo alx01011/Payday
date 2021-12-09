@@ -1,4 +1,4 @@
-package model.card.messageCards;
+package model.card.mailCards;
 
 /**
  * Get paid by your neighbor card

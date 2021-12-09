@@ -1,4 +1,4 @@
-package model.card.messageCards;
+package model.card.mailCards;
 
 /**
  * Pay the given amount to jackpot
