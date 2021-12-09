@@ -1,7 +1,6 @@
 package controller;
 
 import model.card.Card;
-import model.card.messageCards.MailCard;
 import model.player.Player;
 import model.position.Position;
 
