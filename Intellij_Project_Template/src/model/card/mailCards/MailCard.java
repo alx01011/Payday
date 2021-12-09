@@ -32,6 +32,11 @@ public class MailCard implements Card
     }
 
 
+    /**
+     * Returns a string with the card type
+     * @return card type
+     */
+
     @Override
     public String toString()
     {
