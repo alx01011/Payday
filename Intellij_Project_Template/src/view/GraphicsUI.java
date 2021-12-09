@@ -1,10 +1,7 @@
 package view;
 
-import model.card.dealCards.DealCard;
-import model.card.messageCards.MailCard;
 
 import javax.swing.*;
-import java.util.LinkedList;
 
 /**
  * Payday GUI
