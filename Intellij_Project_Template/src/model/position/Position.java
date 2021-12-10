@@ -28,7 +28,6 @@ public abstract class Position
         this.day = day;
         this.imageURL = imageURL;
         this.day_index = day_index;
-
     }
 
     /**
