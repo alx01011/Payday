@@ -1,6 +1,8 @@
 package view;
 
 
+import controller.Controller;
+
 import javax.swing.*;
 
 /**
@@ -17,6 +19,7 @@ public class GraphicsUI
     JPanel p2;
     JMenu menu;
     JMenuBar menu_bar;
+    Controller controller;
 
     /**
      * Creates a new window and adds buttons and panels for the players and board also starts the game
