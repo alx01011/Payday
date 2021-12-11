@@ -13,7 +13,7 @@ public class Player
     private       int    loans; // bank loans
     private       int    due; // bills
     private       int    position; // players position on the board
-    private       Player opponent;
+    private       Player neighbor;
 
     /**
      * Create a new instance of player and initializes some values
@@ -126,16 +126,16 @@ public class Player
      * @return opponent player
      */
 
-    public Player getOpponent() {
-        return opponent;
+    public Player getNeighbor() {
+        return neighbor;
     }
 
     /**
      * Sets a players opponent
-     * @param opponent opponent to be set
+     * @param neighbor opponent to be set
      */
 
-    public void setOpponent(Player opponent) {
-        this.opponent = opponent;
+    public void setNeighbor(Player neighbor) {
+        this.neighbor = neighbor;
     }
 }
