@@ -49,7 +49,7 @@ public abstract class MailCard implements Card
      * @param p player
      */
 
-    public abstract void mailAction(Player p);
+    public abstract void action(Player p);
 
 
 }
