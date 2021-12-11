@@ -28,6 +28,7 @@ public interface Card
     /**
      * Action for each card
      * @param p player
+     * @type Transformer
      */
 
     void action(Player p);

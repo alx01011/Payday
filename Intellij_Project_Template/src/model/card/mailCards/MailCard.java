@@ -47,9 +47,9 @@ public abstract class MailCard implements Card
     /**
      * Abstract action function implemented in each mail card
      * @param p player
+     * @type Transformer
      */
 
     public abstract void action(Player p);
-
 
 }
