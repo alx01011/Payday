@@ -1,5 +1,7 @@
 package model.card;
 
+import model.player.Player;
+
 /**
  * Card interface
  * @version 1.0
@@ -22,4 +24,11 @@ public interface Card
 
     @Override
     String toString();
+
+    /**
+     * Action for each card
+     * @param p player
+     */
+
+    void action(Player p);
 }
