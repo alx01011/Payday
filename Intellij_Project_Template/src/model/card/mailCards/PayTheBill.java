@@ -1,5 +1,7 @@
 package model.card.mailCards;
 
+import model.player.Player;
+
 /**
  * Pay the bank the given amount at the end of the month card
  * @version 1.0
@@ -19,4 +21,14 @@ public class PayTheBill extends MailCard {
         super(amount, "PayTheBill");
     }
 
+    /**
+     * Pay the bank the given amount
+     * @param p player to pay
+     * @type Transformer
+     */
+
+    @Override
+    public void mailAction(Player p) {
+
+    }
 }

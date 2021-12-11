@@ -1,6 +1,7 @@
 package model.card.mailCards;
 
 import model.card.Card;
+import model.player.Player;
 
 /**
  * Mail card
@@ -8,7 +9,7 @@ import model.card.Card;
  * @author Alexandros Antonakakis (csd4802)
  */
 
-public class MailCard implements Card
+public abstract class MailCard implements Card
 {
     private int amount;
     private String type;
@@ -42,4 +43,13 @@ public class MailCard implements Card
     {
         return "MailCard";
     }
+
+    /**
+     * Abstract action function implemented in each mail card
+     * @param p player
+     */
+
+    public abstract void mailAction(Player p);
+
+
 }

@@ -1,5 +1,7 @@
 package model.card.mailCards;
 
+import model.player.Player;
+
 /**
  * Get paid by your neighbor card
  * @version 1.0
@@ -16,5 +18,17 @@ public class GetPaidByTheNeighbor extends MailCard {
 
     public GetPaidByTheNeighbor(int amount) {
         super(amount, "GetPaidByTheNeighbor");
+    }
+
+    /**
+     * Get money from neighbor
+     * @param p player holder
+     * @type Transformer
+     */
+
+    @Override
+    public void mailAction(Player p) {
+        Player neighbor = p.getNeighbor();
+
     }
 }

@@ -1,5 +1,7 @@
 package model.card.mailCards;
 
+import model.player.Player;
+
 /**
  * Sell the ad card for the given amount
  * @version 1.0
@@ -17,5 +19,17 @@ public class Advertisement extends MailCard
     public Advertisement(int amount)
     {
         super(amount, "Advertisement");
+    }
+
+
+    /**
+     * Sell the card
+     * @param p player holder
+     * @type Transformer
+     */
+
+    @Override
+    public void mailAction(Player p) {
+
     }
 }

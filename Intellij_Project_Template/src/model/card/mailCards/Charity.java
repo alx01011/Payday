@@ -1,5 +1,7 @@
 package model.card.mailCards;
 
+import model.player.Player;
+
 /**
  * Pay the given amount to jackpot
  * @version 1.0
@@ -17,5 +19,16 @@ public class Charity extends MailCard {
 
     public Charity(int amount) {
         super(amount, "Charity");
+    }
+
+    /**
+     * Deposit money to jackpot
+     * @param p play holder
+     * @type Transformer
+     */
+
+    @Override
+    public void mailAction(Player p) {
+
     }
 }
