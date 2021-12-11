@@ -51,7 +51,7 @@ public class DealCard implements Card {
      * @param p player - deal holder
      */
 
-    public void dealAction(Player p)
+    public void action(Player p)
     {
         // accept or decline the deal
     }

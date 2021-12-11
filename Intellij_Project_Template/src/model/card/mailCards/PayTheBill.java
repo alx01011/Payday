@@ -28,7 +28,7 @@ public class PayTheBill extends MailCard {
      */
 
     @Override
-    public void mailAction(Player p) {
+    public void action(Player p) {
 
     }
 }

@@ -26,7 +26,7 @@ public class MoveToDB extends MailCard {
      */
 
     @Override
-    public void mailAction(Player p) {
+    public void action(Player p) {
 
     }
 }
