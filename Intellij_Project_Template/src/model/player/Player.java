@@ -13,6 +13,7 @@ public class Player
     private       int    loans; // bank loans
     private       int    due; // bills
     private       int    position; // players position on the board
+    private       Player opponent;
 
     /**
      * Create a new instance of player and initializes some values
@@ -118,5 +119,23 @@ public class Player
 
     public void setDue(int due) {
         this.due = due;
+    }
+
+    /**
+     * Returns the players opponent
+     * @return opponent player
+     */
+
+    public Player getOpponent() {
+        return opponent;
+    }
+
+    /**
+     * Sets a players opponent
+     * @param opponent opponent to be set
+     */
+
+    public void setOpponent(Player opponent) {
+        this.opponent = opponent;
     }
 }
