@@ -1,6 +1,7 @@
 package model.card.dealCards;
 
 import model.card.Card;
+import model.player.Player;
 
 /**
  * Deal card
@@ -43,6 +44,16 @@ public class DealCard implements Card {
     public int getSellPrice()
     {
         return sellPrice;
+    }
+
+    /**
+     * Accept or decline the deal
+     * @param p player - deal holder
+     */
+
+    public void dealAction(Player p)
+    {
+        // accept or decline the deal
     }
 
 }
