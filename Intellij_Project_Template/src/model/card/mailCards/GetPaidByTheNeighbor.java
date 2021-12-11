@@ -27,7 +27,7 @@ public class GetPaidByTheNeighbor extends MailCard {
      */
 
     @Override
-    public void mailAction(Player p) {
+    public void action(Player p) {
         Player neighbor = p.getNeighbor();
 
     }
