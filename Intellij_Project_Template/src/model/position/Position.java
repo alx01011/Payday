@@ -64,6 +64,7 @@ public abstract class Position
     /**
      * Performs an action at the given position
      * @param p player
+     * @type Transformer
      */
 
     public abstract void posAction(Player p);
