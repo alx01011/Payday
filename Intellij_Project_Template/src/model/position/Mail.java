@@ -1,6 +1,8 @@
 package model.position;
 
 import enums.Days;
+import model.card.Card;
+import model.card.mailCards.MailCard;
 import model.player.Player;
 
 /**
@@ -20,6 +22,17 @@ public class Mail extends Position {
      */
     public Mail(Days day, String imageURL, int index) {
         super(day, imageURL, index);
+    }
+
+    /**
+     * Randomly give player p a mail card
+     * @param p player
+     * @type Transformer
+     */
+
+    @Override
+    public void posAction(Player p) {
+        MailCard mail; // random mail card
     }
 
 

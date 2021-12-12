@@ -1,6 +1,7 @@
 package model.position;
 
 import enums.Days;
+import model.player.Player;
 
 /**
  * Deal position
@@ -19,5 +20,16 @@ public class Deal extends Position{
      */
     public Deal(Days day, String imageURL, int index) {
         super(day, imageURL, index);
+    }
+
+    /**
+     * Draw a deal card
+     * @param p player
+     * @type Transformer
+     */
+
+    @Override
+    public void posAction(Player p) {
+
     }
 }

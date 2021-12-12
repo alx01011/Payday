@@ -1,6 +1,7 @@
 package model.position;
 
 import enums.Days;
+import model.player.Player;
 
 /**
  * Payday position
@@ -19,5 +20,20 @@ public class Payday extends Position
      */
     public Payday(String imageURL) {
         super(Days.WEDNESDAY, imageURL, 31); // by defaults payday is on Wednesday the 31st
+    }
+
+    /**
+     * Perform all the payday actions on player p
+     * @param p player
+     * @type Transformer
+     */
+
+    @Override
+    public void posAction(Player p) {
+        // give money
+        // pay bills
+        // pay loans
+        // if last round place cards on stack
+        // if not last round move player on start
     }
 }

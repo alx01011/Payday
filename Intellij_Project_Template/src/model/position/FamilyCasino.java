@@ -1,6 +1,7 @@
 package model.position;
 
 import enums.Days;
+import model.player.Player;
 
 /**
  * Family casino position
@@ -21,5 +22,16 @@ public class FamilyCasino extends Position
      */
     public FamilyCasino(Days day, String imageURL, int index) {
         super(day, imageURL, index);
+    }
+
+    /**
+     * Get money from bank if dice is even or give money to jackpot if dice is odd
+     * @param p player
+     * @type Transformer
+     */
+
+    @Override
+    public void posAction(Player p) {
+
     }
 }

@@ -1,6 +1,7 @@
 package model.position;
 
 import enums.Days;
+import model.player.Player;
 
 /**
  * RadioContest position
@@ -21,5 +22,16 @@ public class RadioContest extends Position
 
     public RadioContest(Days day, String imageURL, int index) {
         super(day, imageURL, index);
+    }
+
+    /**
+     * Players roll dice and the highest number get 1000euros from bank
+     * @param p player
+     * @type Transformer
+     */
+
+    @Override
+    public void posAction(Player p) {
+        Player p2 = p.getNeighbor();
     }
 }

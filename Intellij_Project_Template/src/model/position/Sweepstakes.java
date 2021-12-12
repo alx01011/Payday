@@ -1,6 +1,7 @@
 package model.position;
 
 import enums.Days;
+import model.player.Player;
 
 /**
  * Sweepstakes position
@@ -21,5 +22,15 @@ public class Sweepstakes extends Position
      */
     public Sweepstakes(Days day, String imageURL, int index) {
         super(day, imageURL, index);
+    }
+
+    /**
+     * Player p rolls dice again and receive 1000euros * number on dice
+     * @param p player
+     * @type Transformer
+     */
+
+    @Override
+    public void posAction(Player p) {
     }
 }
