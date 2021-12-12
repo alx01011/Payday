@@ -1,6 +1,7 @@
 package model.position;
 
 import enums.Days;
+import model.player.Player;
 
 /**
  * Board positions
@@ -32,7 +33,7 @@ public abstract class Position
 
     /**
      * Returns the position name
-     * @type accessor
+     * @type Accessor
      * @return position name
      */
 
@@ -42,7 +43,7 @@ public abstract class Position
 
     /**
      * Returns image location
-     * @type accessor
+     * @type Accessor
      * @return the images location
      */
 
@@ -53,11 +54,18 @@ public abstract class Position
     /**
      * Returns position on the board
      * @return index
+     * @type Accessor
      */
 
     public int getDay_index() {
         return day_index;
     }
 
+    /**
+     * Performs an action at the given position
+     * @param p player
+     */
+
+    public abstract void posAction(Player p);
 
 }

@@ -1,6 +1,7 @@
 package model.position;
 
 import enums.Days;
+import model.player.Player;
 
 /**
  * Buyer position
@@ -20,5 +21,16 @@ public class Buyer extends Position
      */
     public Buyer(Days day, String imageURL, int index) {
         super(day, imageURL, index);
+    }
+
+    /**
+     * Sell one of the products previously bought with a deal card
+     * @param p player seller
+     * @type Transformer
+     */
+
+    @Override
+    public void posAction(Player p) {
+
     }
 }
