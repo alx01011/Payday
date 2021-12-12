@@ -18,6 +18,7 @@ public class DealCard implements Card {
      * Create a new deal card instance
      * @param amount deal cards offer
      * @param original_amount original price
+     * @type Constructor
      */
 
     public DealCard(int amount, int original_amount)
@@ -28,6 +29,7 @@ public class DealCard implements Card {
 
     /**
      * Returns the deal cards price offer
+     * @type Accessor
      * @return price offer
      */
 
@@ -38,6 +40,7 @@ public class DealCard implements Card {
 
     /**
      * Returns the sell price of the offer
+     * @type Accessor
      * @return sell price
      */
 
@@ -49,6 +52,7 @@ public class DealCard implements Card {
     /**
      * Accept or decline the deal
      * @param p player - deal holder
+     * @type Transformer
      */
 
     public void action(Player p)
