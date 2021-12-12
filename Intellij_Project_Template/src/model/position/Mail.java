@@ -1,6 +1,7 @@
 package model.position;
 
 import enums.Days;
+import model.player.Player;
 
 /**
  * Message position
@@ -8,7 +9,7 @@ import enums.Days;
  * @author Alexandros Antonakakis (csd4802)
  */
 
-public class Message extends Position {
+public class Mail extends Position {
 
     /**
      * Creates a new message position instance
@@ -17,7 +18,9 @@ public class Message extends Position {
      * @param imageURL image location
      * @param index    position on the board
      */
-    public Message(Days day, String imageURL, int index) {
+    public Mail(Days day, String imageURL, int index) {
         super(day, imageURL, index);
     }
+
+
 }
