@@ -126,6 +126,7 @@ public class Player
 
     /**
      * Returns the players opponent
+     * @type Accessor
      * @return opponent player
      */
 
@@ -136,6 +137,7 @@ public class Player
     /**
      * Sets a players opponent
      * @param neighbor opponent to be set
+     * @type Transformer
      */
 
     public void setNeighbor(Player neighbor) {
@@ -144,6 +146,7 @@ public class Player
 
     /**
      * Players dice
+     * @type Accessor
      * @return dice
      */
 
