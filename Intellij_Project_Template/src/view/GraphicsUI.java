@@ -21,6 +21,9 @@ public class GraphicsUI
     JMenuBar menu_bar;
     Controller controller;
 
+    private SundayFootballDay sundayFootballDay;
+    private ThursdayRiseInCrypto thursdayRiseInCrypto;
+
     /**
      * Creates a new window and adds buttons and panels for the players and board also starts the game
      * @type Constructor
