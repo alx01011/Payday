@@ -1,5 +1,7 @@
 package model.player;
 
+import model.dice.Dice;
+
 /**
  * Player
  * @version 1.0
@@ -14,6 +16,7 @@ public class Player
     private       int    due; // bills
     private       int    position; // players position on the board
     private       Player neighbor;
+    private final Dice   dice;
 
     /**
      * Create a new instance of player and initializes some values
@@ -28,7 +31,7 @@ public class Player
         this.loans          = 0;
         this.due            = 0;
         this.position       = 0; // original position at start square
-
+        this.dice           = new Dice();
     }
 
     /**
@@ -137,5 +140,14 @@ public class Player
 
     public void setNeighbor(Player neighbor) {
         this.neighbor = neighbor;
+    }
+
+    /**
+     * Players dice
+     * @return dice
+     */
+
+    public Dice getDice() {
+        return dice;
     }
 }
