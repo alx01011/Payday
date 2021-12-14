@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>/Users/alex/Documents/UoC/hy252/Payday/Intellij_Project_Template/src</OriginalElement>
+  <nodes>
+    <node x="700.9999999999999" y="781.0">model.position.Buyer</node>
+    <node x="1476.0" y="903.0">enums.Bet_Sports</node>
+    <node x="572.0" y="1269.0">model.dice.Dice</node>
+    <node x="274.0" y="1269.0">model.special.SundayFootballDay</node>
+    <node x="1603.0" y="781.0">model.position.FamilyCasino</node>
+    <node x="993.25" y="147.0">model.card.dealCards.DealCard</node>
+    <node x="1221.0" y="903.0">model.special.Jackpot</node>
+    <node x="1270.0" y="364.0">model.card.mailCards.Advertisement</node>
+    <node x="510.99999999999994" y="364.0">model.card.mailCards.Charity</node>
+    <node x="489.9999999999999" y="781.0">model.position.Deal</node>
+    <node x="1181.0" y="781.0">model.position.Mail</node>
+    <node x="754.0" y="1269.0">model.special.ThursdayRiseInCrypto</node>
+    <node x="0.0" y="1269.0">enums.Bet_Crypto</node>
+    <node x="632.0" y="903.0">controller.Controller</node>
+    <node x="898.0" y="364.0">model.card.mailCards.MoveToDB</node>
+    <node x="1084.0" y="364.0">model.card.mailCards.PayTheBill</node>
+    <node x="224.9999999999999" y="781.0">model.position.RadioContest</node>
+    <node x="697.0" y="364.0">model.card.mailCards.PayTheNeighbor</node>
+    <node x="0.0" y="0.0">model.player.Player</node>
+    <node x="0.0" y="903.0">view.GraphicsUI</node>
+    <node x="1750.0" y="903.0">view.ThursdayRiseInCryptoUI</node>
+    <node x="398.0" y="903.0">enums.Days</node>
+    <node x="795.25" y="147.0">model.card.mailCards.MailCard</node>
+    <node x="955.0" y="903.0">view.SundayFootballDayUI</node>
+    <node x="897.25" y="0.0">model.card.Card</node>
+    <node x="917.9999999999999" y="781.0">model.position.Sweepstakes</node>
+    <node x="933.9999999999999" y="520.0">model.position.Position</node>
+    <node x="257.0" y="364.0">model.card.mailCards.GetPaidByTheNeighbor</node>
+    <node x="1866.0" y="781.0">model.position.YardSale</node>
+    <node x="1392.0" y="781.0">model.position.Payday</node>
+    <node x="0.0" y="781.0">model.position.Lottery</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="model.card.mailCards.MoveToDB" target="model.card.mailCards.MailCard" relationship="GENERALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="981.0" y="339.0" />
+      <point x="884.25" y="339.0" />
+      <point x="0.0" y="83.5" />
+    </edge>
+    <edge source="model.card.mailCards.PayTheNeighbor" target="model.card.mailCards.MailCard" relationship="GENERALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="787.5" y="339.0" />
+      <point x="884.25" y="339.0" />
+      <point x="0.0" y="83.5" />
+    </edge>
+    <edge source="model.position.Buyer" target="model.position.Position" relationship="GENERALIZATION">
+      <point x="1.1368683772161603E-13" y="-38.5" />
+      <point x="799.5" y="756.0" />
+      <point x="1039.5" y="756.0" />
+      <point x="0.0" y="105.5" />
+    </edge>
+    <edge source="model.card.mailCards.GetPaidByTheNeighbor" target="model.card.mailCards.MailCard" relationship="GENERALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="374.0" y="339.0" />
+      <point x="884.25" y="339.0" />
+      <point x="0.0" y="83.5" />
+    </edge>
+    <edge source="model.position.FamilyCasino" target="model.position.Position" relationship="GENERALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="1724.5" y="756.0" />
+      <point x="1039.5" y="756.0" />
+      <point x="0.0" y="105.5" />
+    </edge>
+    <edge source="model.position.Payday" target="model.position.Position" relationship="GENERALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="1487.5" y="756.0" />
+      <point x="1039.5" y="756.0" />
+      <point x="0.0" y="105.5" />
+    </edge>
+    <edge source="model.position.RadioContest" target="model.position.Position" relationship="GENERALIZATION">
+      <point x="1.1368683772161603E-13" y="-38.5" />
+      <point x="347.5" y="756.0" />
+      <point x="1039.5" y="756.0" />
+      <point x="0.0" y="105.5" />
+    </edge>
+    <edge source="model.position.Deal" target="model.position.Position" relationship="GENERALIZATION">
+      <point x="1.1368683772161603E-13" y="-38.5" />
+      <point x="585.5" y="756.0" />
+      <point x="1039.5" y="756.0" />
+      <point x="0.0" y="105.5" />
+    </edge>
+    <edge source="model.card.mailCards.MailCard" target="model.card.Card" relationship="REALIZATION">
+      <point x="0.0" y="-83.5" />
+      <point x="884.25" y="122.0" />
+      <point x="980.25" y="122.0" />
+      <point x="0.0" y="48.5" />
+    </edge>
+    <edge source="model.card.mailCards.PayTheBill" target="model.card.mailCards.MailCard" relationship="GENERALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="1167.0" y="339.0" />
+      <point x="884.25" y="339.0" />
+      <point x="0.0" y="83.5" />
+    </edge>
+    <edge source="model.position.Mail" target="model.position.Position" relationship="GENERALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="1276.5" y="756.0" />
+      <point x="1039.5" y="756.0" />
+      <point x="0.0" y="105.5" />
+    </edge>
+    <edge source="model.position.Lottery" target="model.position.Position" relationship="GENERALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="102.5" y="756.0" />
+      <point x="1039.5" y="756.0" />
+      <point x="0.0" y="105.5" />
+    </edge>
+    <edge source="model.position.Sweepstakes" target="model.position.Position" relationship="GENERALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="0.0" y="105.5" />
+    </edge>
+    <edge source="model.card.mailCards.Advertisement" target="model.card.mailCards.MailCard" relationship="GENERALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="1354.5" y="339.0" />
+      <point x="884.25" y="339.0" />
+      <point x="0.0" y="83.5" />
+    </edge>
+    <edge source="model.card.dealCards.DealCard" target="model.card.Card" relationship="REALIZATION">
+      <point x="0.0" y="-83.5" />
+      <point x="1076.25" y="122.0" />
+      <point x="980.25" y="122.0" />
+      <point x="0.0" y="48.5" />
+    </edge>
+    <edge source="model.position.YardSale" target="model.position.Position" relationship="GENERALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="1973.5" y="756.0" />
+      <point x="1039.5" y="756.0" />
+      <point x="0.0" y="105.5" />
+    </edge>
+    <edge source="model.card.mailCards.Charity" target="model.card.mailCards.MailCard" relationship="GENERALIZATION">
+      <point x="0.0" y="-38.5" />
+      <point x="594.0" y="339.0" />
+      <point x="884.25" y="339.0" />
+      <point x="0.0" y="83.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.5007547619573621" showDependencies="false" x="1104.2663650202255" y="573.5818310772593" />
+  <SelectedNodes>
+    <node>model.position.Buyer</node>
+    <node>enums.Bet_Sports</node>
+    <node>model.card.mailCards.MailCard</node>
+    <node>model.card.dealCards.DealCard</node>
+    <node>model.card.mailCards.Advertisement</node>
+    <node>model.card.mailCards.Charity</node>
+    <node>model.position.Deal</node>
+    <node>model.position.Mail</node>
+    <node>model.card.mailCards.MoveToDB</node>
+    <node>model.card.mailCards.PayTheBill</node>
+    <node>model.position.RadioContest</node>
+    <node>model.position.Sweepstakes</node>
+    <node>model.position.Position</node>
+    <node>model.card.mailCards.GetPaidByTheNeighbor</node>
+    <node>model.card.mailCards.PayTheNeighbor</node>
+    <node>model.position.Payday</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
