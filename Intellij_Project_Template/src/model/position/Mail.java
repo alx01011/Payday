@@ -19,6 +19,8 @@ public class Mail extends Position {
      * @param day     position day
      * @param imageURL image location
      * @param index    position on the board
+     * @Precondition day and URL are not null and index is positive or zero
+     * @Postcondition A new instance of Mail is created
      */
     public Mail(Days day, String imageURL, int index) {
         super(day, imageURL, index);
@@ -28,6 +30,8 @@ public class Mail extends Position {
      * Randomly give player p a mail card
      * @param p player
      * @type Transformer
+     * @Precondition p is not null
+     * @Postcondition p is given a mail card
      */
 
     @Override

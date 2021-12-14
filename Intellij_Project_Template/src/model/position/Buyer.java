@@ -18,6 +18,8 @@ public class Buyer extends Position
      * @param day      position day
      * @param imageURL image location
      * @param index    position on the board
+     * @Precondition day and URL are not null and index is positive or zero
+     * @Postcondition A new instance of buyer is created
      */
     public Buyer(Days day, String imageURL, int index) {
         super(day, imageURL, index);
@@ -27,6 +29,8 @@ public class Buyer extends Position
      * Sell one of the products previously bought with a deal card
      * @param p player seller
      * @type Transformer
+     * @Precondition p is not null
+     * @Postcondition A product may be sold
      */
 
     @Override

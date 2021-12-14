@@ -14,9 +14,10 @@ public class Payday extends Position
 
     /**
      * Creates a new Payday position instance
-     *
      * @param imageURL image location
      * @type Constructor
+     * @Precondition imageURL is not null
+     * @Postcondition A new payday position is created
      */
     public Payday(String imageURL) {
         super(Days.WEDNESDAY, imageURL, 31); // by defaults payday is on Wednesday the 31st
@@ -26,6 +27,8 @@ public class Payday extends Position
      * Perform all the payday actions on player p
      * @param p player
      * @type Transformer
+     * @Precondition p is not null
+     * @Postcondition payday actions are performed on p
      */
 
     @Override

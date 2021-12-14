@@ -17,6 +17,8 @@ public class Lottery extends Position{
      * @param day      position day
      * @param imageURL image location
      * @param index    position on the board
+     * @Precondition day and URL are not null and index is positive or zero
+     * @Postcondition A new instance of lottery is created
      */
     public Lottery(Days day, String imageURL, int index) {
         super(day, imageURL, index);
@@ -26,6 +28,8 @@ public class Lottery extends Position{
      * Let both players select a random then shuffle and reward the winner
      * @param p player
      * @type Transformer
+     * @Precondition p is not null
+     * @Postcondition Winner is rewarded
      */
 
     @Override

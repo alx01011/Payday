@@ -17,7 +17,11 @@ public class Deal extends Position{
      * @param day      position day
      * @param imageURL image location
      * @param index    position on the board
+     * @Precondition day and URL are not null and index is positive or zero
+     * @Postcondition A new instance of deal is created
      */
+
+
     public Deal(Days day, String imageURL, int index) {
         super(day, imageURL, index);
     }
@@ -26,6 +30,8 @@ public class Deal extends Position{
      * Draw a deal card
      * @param p player
      * @type Transformer
+     * @Precondition p is not null
+     * @Postcondition Draw a new deal card
      */
 
     @Override

@@ -19,6 +19,8 @@ public class FamilyCasino extends Position
      * @param imageURL image location
      * @param index    position on the board
      * @type Constructor
+     * @Precondition day and URL are not null and index is positive or zero
+     * @Postcondition A new instance of family casino is created
      */
     public FamilyCasino(Days day, String imageURL, int index) {
         super(day, imageURL, index);
@@ -28,6 +30,8 @@ public class FamilyCasino extends Position
      * Get money from bank if dice is even or give money to jackpot if dice is odd
      * @param p player
      * @type Transformer
+     * @Precondition p is not null
+     * @Postcondition Get money from bank or add to jackpot
      */
 
     @Override

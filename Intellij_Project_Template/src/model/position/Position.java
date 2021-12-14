@@ -22,6 +22,8 @@ public abstract class Position
      * @param day position day
      * @param imageURL image location
      * @param day_index position on the board
+     * @Precondition day and URL are not null and index is positive or zero
+     * @Postcondition A new instance of Position is created
      */
 
     public Position(Days day, String imageURL, int day_index)
@@ -35,6 +37,8 @@ public abstract class Position
      * Returns the position name
      * @type Accessor
      * @return position name
+     * @Precondition day is not null
+     * @Postcondition day is returned
      */
 
     public Days getDay() {
@@ -45,6 +49,8 @@ public abstract class Position
      * Returns image location
      * @type Accessor
      * @return the images location
+     * @Precondition imageURL is not null
+     * @Postcondition imageURL is returned
      */
 
     public String getImageURL() {
@@ -55,6 +61,8 @@ public abstract class Position
      * Returns position on the board
      * @return index
      * @type Accessor
+     * @Precondition day_index was initialized
+     * @Postcondition day_index is returned
      */
 
     public int getDay_index() {
@@ -65,6 +73,8 @@ public abstract class Position
      * Performs an action at the given position
      * @param p player
      * @type Transformer
+     * @Precondition p is not null
+     * @Postcondition (An) action(s) are performed
      */
 
     public abstract void posAction(Player p);

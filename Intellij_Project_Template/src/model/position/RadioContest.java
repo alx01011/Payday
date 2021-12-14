@@ -18,6 +18,8 @@ public class RadioContest extends Position
      * @param imageURL image location
      * @param index    position on the board
      * @type Constructor
+     * @Precondition day and URL are not null and index is positive or zero
+     * @Postcondition A new instance of RadioContest is created
      */
 
     public RadioContest(Days day, String imageURL, int index) {
@@ -28,6 +30,8 @@ public class RadioContest extends Position
      * Players roll dice and the highest number get 1000euros from bank
      * @param p player
      * @type Transformer
+     * @Precondition p is not null
+     * @Postcondition lucky player awarded 1000euros
      */
 
     @Override
