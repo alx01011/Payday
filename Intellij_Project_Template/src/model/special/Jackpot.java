@@ -3,7 +3,7 @@ package model.special;
 import model.player.Player;
 
 /**
- * Jackpot position
+ * Jackpot core
  * @version 1.0
  * @author Alexandros Antonakakis (csd4802)
  */
