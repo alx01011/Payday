@@ -32,7 +32,7 @@ public class Jackpot{
      * @type Transformer
      */
 
-    public void posAction(Player p) {
+    public void jackpotAction(Player p) {
         p.setBank_balance(p.getBank_balance() + amount);
     }
 
