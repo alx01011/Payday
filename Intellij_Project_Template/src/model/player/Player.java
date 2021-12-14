@@ -22,6 +22,8 @@ public class Player
      * Create a new instance of player and initializes some values
      * @type Constructor
      * @param name players callsign
+     * @Precondition name is not null or of zero length
+     * @Postcondition A new instance of Player is created
      */
 
     public Player(String name)
@@ -38,6 +40,8 @@ public class Player
      * Returns players name
      * @type accessor
      * @return name
+     * @Precondition Name is initialized
+     * @Postcondition Players name is returned
      */
 
     public String getName() {
@@ -48,6 +52,8 @@ public class Player
      * Returns player position
      * @type accessor
      * @return position
+     * @Precondition Position is not empty
+     * @Postcondition Position is returned
      */
 
     public int getPosition() {
@@ -58,6 +64,8 @@ public class Player
      * Sets a new players position
      * @type Transformer
      * @param position new players position
+     * @Precondition position is positive
+     * @Postcondition New position is set
      */
 
     public void setPosition(int position) {
@@ -68,6 +76,8 @@ public class Player
      * Returns the bank balance
      * @type Accessor
      * @return bank balance
+     * @Precondition Bank_balance was initialized
+     * @Postcondition Bank_balance is returned
      */
 
     public int getBank_balance() {
@@ -78,6 +88,8 @@ public class Player
      * Updates bank balance
      * @type Transformer
      * @param bank_balance new bank balance
+     * @Precondition bank_balance doesn't overflow int
+     * @Postcondition A new balance is set
      */
 
     public void setBank_balance(int bank_balance) {
@@ -88,6 +100,8 @@ public class Player
      * Returns the loan amount owed
      * @type Accessor
      * @return loan
+     * @Precondition Loan was initialized
+     * @Postcondition Loan is returned
      */
 
     public int getLoans() {
@@ -98,6 +112,8 @@ public class Player
      * Sets a new loan amount
      * @type Transformer
      * @param loans new loan amount
+     * @Precondition loans doesn't overflow int
+     * @Postcondition Loans is updated
      */
 
     public void setLoans(int loans) {
@@ -118,6 +134,8 @@ public class Player
      * Updates the bill money owed by the player
      * @type Transformer
      * @param due new bills due
+     * @Precondition Due field initialized
+     * @Postcondition Due is returned
      */
 
     public void setDue(int due) {
@@ -128,6 +146,8 @@ public class Player
      * Returns the players opponent
      * @type Accessor
      * @return opponent player
+     * @Precondition Neighbor field initialized
+     * @Postcondition Neighbor is returned
      */
 
     public Player getNeighbor() {
@@ -138,6 +158,8 @@ public class Player
      * Sets a players opponent
      * @param neighbor opponent to be set
      * @type Transformer
+     * @Precondition neighbor is not null
+     * @Postcondition A new neighbor is set
      */
 
     public void setNeighbor(Player neighbor) {
@@ -148,6 +170,8 @@ public class Player
      * Players dice
      * @type Accessor
      * @return dice
+     * @Precondition Dice was initialized
+     * @Postcondition Dice is returned
      */
 
     public Dice getDice() {
