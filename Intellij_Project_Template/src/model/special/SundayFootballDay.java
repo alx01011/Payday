@@ -26,7 +26,7 @@ public class SundayFootballDay
      * @Postcondition A bet may be placed
      */
 
-    public void action()
+    public void sundayFootballaction()
     {
         switch(choice)
         {
