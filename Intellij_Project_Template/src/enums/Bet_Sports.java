@@ -1,6 +1,6 @@
 package enums;
 
-public enum Bet
+public enum Bet_Sports
 {
     WIN_TEAM1,
     DRAW,

@@ -1,6 +1,6 @@
 package model.special;
 
-import enums.Bet;
+import enums.Bet_Sports;
 
 /**
  * SundayFootBallDay core
@@ -11,9 +11,9 @@ import enums.Bet;
 public class SundayFootballDay
 {
     private       int bet;
-    private final Bet choice;
+    private final Bet_Sports choice;
 
-    public SundayFootballDay(Bet choice)
+    public SundayFootballDay(Bet_Sports choice)
     {
         this.choice = choice;
     }
