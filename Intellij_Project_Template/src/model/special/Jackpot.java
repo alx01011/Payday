@@ -1,6 +1,5 @@
-package model.position;
+package model.special;
 
-import enums.Days;
 import model.player.Player;
 
 /**
@@ -9,20 +8,19 @@ import model.player.Player;
  * @author Alexandros Antonakakis (csd4802)
  */
 
-public class Jackpot extends Position{
+public class Jackpot{
 
     private int amount; // jackpot amount
+    private String imageURL;
 
     /**
      * Creates a new jackpot position instance
      *
-     * @param day      position day
      * @param imageURL image location
-     * @param index    position on the board
      * @type Constructor
      */
-    public Jackpot(Days day, String imageURL, int index) {
-        super(Days.NONE, imageURL, 33); // place it 2 days after payday
+    public Jackpot(String imageURL) {
+        this.imageURL = imageURL;
         amount = 0;
     }
 
@@ -32,7 +30,6 @@ public class Jackpot extends Position{
      * @type Transformer
      */
 
-    @Override
     public void posAction(Player p) {
         p.setBank_balance(p.getBank_balance() + amount);
     }
