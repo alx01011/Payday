@@ -28,4 +28,16 @@ public class ThursdayRiseInCrypto {
     }
 
 
+    /**
+     * Perform the bet
+     * @type Transformer
+     * @Precondition choice bet
+     * @Postcondition bet outcome
+     */
+
+    public void thurdayRiseAction()
+    {}
+
+
+
 }
