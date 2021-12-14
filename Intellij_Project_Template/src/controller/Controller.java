@@ -29,6 +29,7 @@ public class Controller
     /**
      * Creates a new instance of Controller and initializes the board and card stacks
      * @type Constructor
+     * @Postcondition A new controller is created and the fields are initialized
      */
 
     public Controller()
@@ -53,6 +54,8 @@ public class Controller
     /**
      * Initializes the card stacks
      * @type Transformer
+     * @Precondition Fields are initialized by the constructor
+     * @Postcondition Card stack are initialized
      */
 
     private void init_cardStacks()
@@ -64,16 +67,16 @@ public class Controller
     /**
      * Initializes the positions
      * @type Transformer
+     * @Precondition Fields are initialized by the constructor
+     * @Postcondition Board positions are initialized
      */
 
     private void init_board()
     {
 
-
         // add all the possible positions on the arraylist
 
         Collections.shuffle(positions); // shuffle the positions
-
     }
 
 }
