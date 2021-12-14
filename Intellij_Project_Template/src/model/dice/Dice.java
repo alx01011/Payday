@@ -15,6 +15,7 @@ public class Dice
     /**
      * Creates a new dice instance and initializes the value to 0
      * @type Constructor
+     * @Postcondition A new instance of Dice is created
      */
 
     public Dice()
@@ -26,6 +27,8 @@ public class Dice
      * Returns the current dice number
      * @type accessor
      * @return dice value
+     * @Precondition Dice object exists and value field initialized
+     * @Postcondition Value field is returned
      */
 
     public int getValue() {
@@ -35,6 +38,8 @@ public class Dice
     /**
      * Randomly selects a number between 1 and 6 for the dice
      * @type Transformer
+     * @Precondition Dice object exists
+     * @Postcondition A new value appears for the dice
      */
 
     public void rollDice()
