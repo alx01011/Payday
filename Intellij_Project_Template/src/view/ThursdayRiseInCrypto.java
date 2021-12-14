@@ -19,6 +19,7 @@ public class ThursdayRiseInCrypto
     /**
      * Creates a new instance of Crypto Thursday window
      * @type Constructor
+     * @Postcondition A new instance of ThursdayRiseInCrypto is created
      */
 
     public ThursdayRiseInCrypto()
@@ -29,6 +30,7 @@ public class ThursdayRiseInCrypto
     /**
      * initializes the crypto window fields
      * @type Transformer
+     * @Postcondition Fields are instantiated and initialized
      */
 
     private void init_fields()
@@ -39,7 +41,6 @@ public class ThursdayRiseInCrypto
         button[1] = new JButton("Skip bet");
 
         // add win/lose button and update panel
-
 
     }
 

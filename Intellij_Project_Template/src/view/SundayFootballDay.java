@@ -21,6 +21,7 @@ public class SundayFootballDay
     /**
      * Creates a new instance of sunday football day window
      * @type Constructor
+     * @Postcondition SundayFootballDay instance is created and global fields are initialized
      */
 
     public SundayFootballDay()
@@ -32,6 +33,7 @@ public class SundayFootballDay
     /**
      * Initializes the class fields
      * @type Transformer
+     * @Postcondition fields are instantiated and initialized
      */
 
     private void init_fields()
