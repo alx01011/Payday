@@ -19,6 +19,7 @@ public class DealCard implements Card {
      * @param amount deal cards offer
      * @param original_amount original price
      * @type Constructor
+     * @Postcondition A new object is instantiated and fields are initialized
      */
 
     public DealCard(int amount, int original_amount)
@@ -31,6 +32,7 @@ public class DealCard implements Card {
      * Returns the deal cards price offer
      * @type Accessor
      * @return price offer
+     * @Precondition Object is instantiated and BuyPrice field initialized
      */
 
     @Override
@@ -42,6 +44,7 @@ public class DealCard implements Card {
      * Returns the sell price of the offer
      * @type Accessor
      * @return sell price
+     * @Precondition Object is instantiated and sellPrice field initialized
      */
 
     public int getSellPrice()
@@ -53,6 +56,8 @@ public class DealCard implements Card {
      * Accept or decline the deal
      * @param p player - deal holder
      * @type Transformer
+     * @Precondition Player p is not null
+     * @Postcondition Player accepted or declined offer
      */
 
     public void action(Player p)
