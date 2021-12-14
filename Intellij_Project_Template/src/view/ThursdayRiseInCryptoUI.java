@@ -8,7 +8,7 @@ import javax.swing.*;
  * @author Alexandros Antonakakis (csd4802)
  */
 
-public class ThursdayRiseInCrypto
+public class ThursdayRiseInCryptoUI
 {
 
     private JFrame frame;
@@ -22,7 +22,7 @@ public class ThursdayRiseInCrypto
      * @Postcondition A new instance of ThursdayRiseInCrypto is created
      */
 
-    public ThursdayRiseInCrypto()
+    public ThursdayRiseInCryptoUI()
     {
 
     }

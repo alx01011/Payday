@@ -8,7 +8,7 @@ import javax.swing.*;
  * @author Alexandros Antonakakis (csd4802)
  */
 
-public class SundayFootballDay
+public class SundayFootballDayUI
 {
     private JFrame frame;
     private JPanel panel_bet;
@@ -24,7 +24,7 @@ public class SundayFootballDay
      * @Postcondition SundayFootballDay instance is created and global fields are initialized
      */
 
-    public SundayFootballDay()
+    public SundayFootballDayUI()
     {
         init_fields();
     }
