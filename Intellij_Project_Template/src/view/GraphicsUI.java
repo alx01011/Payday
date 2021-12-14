@@ -27,6 +27,7 @@ public class GraphicsUI
     /**
      * Creates a new window and adds buttons and panels for the players and board also starts the game
      * @type Constructor
+     * @Postcondition a new graphicsui instance is created
      */
 
     public GraphicsUI()
@@ -37,6 +38,7 @@ public class GraphicsUI
     /**
      * Initializes the global frame, panels and menu fields
      * @type Transformer
+     * @Postcondition fields are initialized
      */
 
     private void initialize_fields()
@@ -48,6 +50,8 @@ public class GraphicsUI
     /**
      * Creates panels for the players
      * @type Transformer
+     * @Precondition Fields are initialized
+     * @Postcondition panels are created
      */
 
     private void create_player_panels()
@@ -58,6 +62,8 @@ public class GraphicsUI
     /**
      * Starts a new game
      * @type Transformer
+     * @Precondition Fields and panels are initialized
+     * @Postcondition a new game is started
      */
 
     private void init_session()
