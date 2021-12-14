@@ -16,8 +16,8 @@ public abstract class MailCard implements Card
 
     /**
      * Constructor for MailCard
-     * @param amount
-     * @param type
+     * @param amount mail card amount
+     * @param type mail card name
      * @type Constructor
      * @Postcondition A new instance of MailCard is created
      */
