@@ -11,6 +11,8 @@ import model.player.Player;
 public class Jackpot{
 
     private int amount; // jackpot amount
+
+
     private String imageURL;
 
     /**
@@ -52,6 +54,26 @@ public class Jackpot{
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    /**
+     * Returns the imageURL
+     * @return imageurl
+     * @type Accessor
+     */
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    /**
+     * Sets the imageURL
+     * @param imageURL imageurl
+     * @type Transformer
+     */
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
 }
