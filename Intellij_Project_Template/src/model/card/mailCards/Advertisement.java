@@ -14,6 +14,7 @@ public class Advertisement extends MailCard
      * Create a new advertisement card
      * @type Constructor
      * @param amount amount to sell for
+     * @Postcondition A new instance of Advertisement is created
      */
 
     public Advertisement(int amount)
@@ -26,6 +27,8 @@ public class Advertisement extends MailCard
      * Sell the card
      * @param p player holder
      * @type Transformer
+     * @Precondition Player p is not null
+     * @Postcondition Player sells the card
      */
 
     @Override
