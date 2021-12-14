@@ -13,6 +13,7 @@ public class MoveToDB extends MailCard {
     /**
      * Create a new move to Deal/Buyer card
      * @type Constructor
+     * @Postcondition A new instance of MoveToDB is created
      */
 
     public MoveToDB() {
@@ -23,6 +24,8 @@ public class MoveToDB extends MailCard {
      * Moves player p to the next DB position
      * @param p player to be moved
      * @type Transformer
+     * @Precondition Player p is not null
+     * @Postcondition Player p is moved to the nearest DB position
      */
 
     @Override

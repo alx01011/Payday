@@ -14,6 +14,14 @@ public abstract class MailCard implements Card
     private int amount;
     private String type;
 
+    /**
+     * Constructor for MailCard
+     * @param amount
+     * @param type
+     * @type Constructor
+     * @Postcondition A new instance of MailCard is created
+     */
+
     public MailCard(int amount, String type)
     {
         this.amount = amount;
@@ -24,6 +32,8 @@ public abstract class MailCard implements Card
      * Returns the amount value of the card
      * @type Accessor
      * @return the amount due
+     * @Precondition Amount is initialized
+     * @Postcondition Amount is returned
      */
 
     @Override
@@ -48,6 +58,8 @@ public abstract class MailCard implements Card
      * Abstract action function implemented in each mail card
      * @param p player
      * @type Transformer
+     * @Precondition Player p is not null
+     * @Postcondition MailCard action is performed
      */
 
     public abstract void action(Player p);

@@ -14,6 +14,7 @@ public class PayTheBill extends MailCard {
      * Create a new bill card
      * @type Constructor
      * @param amount amount to pay
+     * @Postcondition A new instance of PayTheBill is created
      */
 
     public PayTheBill(int amount)
@@ -25,6 +26,8 @@ public class PayTheBill extends MailCard {
      * Pay the bank the given amount
      * @param p player to pay
      * @type Transformer
+     * @Precondition  Player p is not null
+     * @Postcondition Bank balance may be reduced
      */
 
     @Override

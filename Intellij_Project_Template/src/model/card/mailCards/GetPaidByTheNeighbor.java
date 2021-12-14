@@ -14,6 +14,7 @@ public class GetPaidByTheNeighbor extends MailCard {
      * Create a new GetPaidByTheNeighbor card
      * @param amount to receive from neighbor
      * @type Constructor
+     * @Postcondition A new instance of GetPaidByTheNeighbor is created
      */
 
     public GetPaidByTheNeighbor(int amount) {
@@ -24,6 +25,8 @@ public class GetPaidByTheNeighbor extends MailCard {
      * Get money from neighbor
      * @param p player holder
      * @type Transformer
+     * @Precondition Player p is not null
+     * @Postcondition Account balance increased
      */
 
     @Override

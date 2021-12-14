@@ -13,6 +13,8 @@ public class PayTheNeighbor extends MailCard {
     /**
      * Create a new PayTheNeighbor card
      * @param amount amount to pay the neighbor
+     * @type Constructor
+     * @Postcondition A new instance of PayTheNeighbor is created
      */
 
     public PayTheNeighbor(int amount) {
@@ -23,6 +25,8 @@ public class PayTheNeighbor extends MailCard {
      * Pay the neighbor
      * @param p player to pay the neighbor
      * @type Transformer
+     * @Precondition Player p is not null
+     * @Postcondition Account balance is reduced
      */
 
     @Override

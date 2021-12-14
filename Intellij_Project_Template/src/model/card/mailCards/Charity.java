@@ -15,6 +15,7 @@ public class Charity extends MailCard {
     /**
      * Create a new Charity card
      * @param amount amount to be given to jackpot
+     * @Postcondition A new instance of Charity is created
      */
 
     public Charity(int amount) {
@@ -25,6 +26,8 @@ public class Charity extends MailCard {
      * Deposit money to jackpot
      * @param p play holder
      * @type Transformer
+     * @Precondition Player p is not null
+     * @Postcondition Jackpot amount is increased
      */
 
     @Override
