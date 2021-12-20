@@ -4,6 +4,8 @@ package view;
 import controller.Controller;
 
 import javax.swing.*;
+import java.awt.*;
+import java.net.URL;
 
 /**
  * Payday GUI
@@ -14,12 +16,14 @@ import javax.swing.*;
 public class GraphicsUI
 {
     JFrame frame;
-    JPanel board;
+    JDesktopPane board;
     JPanel p1;
     JPanel p2;
     JMenu menu;
     JMenuBar menu_bar;
     Controller controller;
+    URL imageURL;
+    Image image;
 
     private SundayFootballDayUI sundayFootballDayUI;
     private ThursdayRiseInCryptoUI thursdayRiseInCryptoUI;
@@ -32,6 +36,7 @@ public class GraphicsUI
 
     public GraphicsUI()
     {
+        initialize_fields();
 
     }
 
@@ -43,7 +48,8 @@ public class GraphicsUI
 
     private void initialize_fields()
     {
-
+        frame = new JFrame("Payday");
+        board = new JDesktopPane();
     }
 
 
