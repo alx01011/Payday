@@ -16,14 +16,15 @@ import java.net.URL;
 public class GraphicsUI
 {
     JFrame frame;
-    JDesktopPane board;
+    customPanel board;
     JPanel p1;
     JPanel p2;
     JMenu menu;
     JMenuBar menu_bar;
     Controller controller;
     URL imageURL;
-    Image image;
+    Image image;  // used for different images
+    ClassLoader loader;
 
     private SundayFootballDayUI sundayFootballDayUI;
     private ThursdayRiseInCryptoUI thursdayRiseInCryptoUI;
@@ -37,7 +38,7 @@ public class GraphicsUI
     public GraphicsUI()
     {
         initialize_fields();
-
+        loader = this.getClass().getClassLoader();
     }
 
     /**
@@ -49,7 +50,7 @@ public class GraphicsUI
     private void initialize_fields()
     {
         frame = new JFrame("Payday");
-        board = new JDesktopPane();
+        board = new customPanel();
     }
 
 
@@ -77,4 +78,30 @@ public class GraphicsUI
 
     }
 
+    /**
+     * Panel with a custom background
+     */
+
+    class customPanel extends JDesktopPane
+    {
+        @Override
+        public void paintComponent(Graphics g) {
+            imageURL = loader.getResource("resources/images/bg_green.png");
+            image = new ImageIcon(imageURL).getImage();
+            super.paintComponent(g);
+            g.drawImage(image, 0, 0, this);
+        }
+    }
+}
+
+/**
+ * tester
+ */
+
+class Main
+{
+    public static void main(String[] args)
+    {
+        GraphicsUI g = new GraphicsUI();
+    }
 }
