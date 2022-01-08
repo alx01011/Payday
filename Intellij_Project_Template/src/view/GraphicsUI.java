@@ -37,8 +37,8 @@ public class GraphicsUI
 
     public GraphicsUI()
     {
-        initialize_fields();
         loader = this.getClass().getClassLoader();
+        initialize_fields();
     }
 
     /**
@@ -50,7 +50,33 @@ public class GraphicsUI
     private void initialize_fields()
     {
         frame = new JFrame("Payday");
+
         board = new customPanel();
+        frame.setVisible(true);
+        frame.add(board);
+        board.paintComponent(board.getGraphics());
+
+        // expand the window to background image size
+
+        GroupLayout layout = new GroupLayout(frame.getContentPane());
+        frame.getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(board, GroupLayout.PREFERRED_SIZE, 910, GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addComponent(board, GroupLayout.PREFERRED_SIZE, 685, GroupLayout.PREFERRED_SIZE)
+        );
+
+        board.repaint();
+        frame.pack();
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        //imageURL = loader.getResource("resources/images/logo.png");
+
+       // image = new ImageIcon(imageURL).getImage();
+
     }
 
 
@@ -84,12 +110,24 @@ public class GraphicsUI
 
     class customPanel extends JDesktopPane
     {
+        public customPanel()
+        {
+            imageURL = loader.getResource("resources/images/bg_green.png");
+
+            if (imageURL == null)
+            {
+                throw new NullPointerException("Background image not found");
+            }
+
+            image = new ImageIcon(imageURL).getImage();
+        }
+
         @Override
         public void paintComponent(Graphics g) {
-            imageURL = loader.getResource("resources/images/bg_green.png");
-            image = new ImageIcon(imageURL).getImage();
+
             super.paintComponent(g);
             g.drawImage(image, 0, 0, this);
+
         }
     }
 }
