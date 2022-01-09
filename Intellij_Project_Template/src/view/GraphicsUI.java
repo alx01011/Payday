@@ -6,6 +6,7 @@ import controller.Controller;
 import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
+import java.util.Objects;
 
 /**
  * Payday GUI
@@ -19,8 +20,13 @@ public class GraphicsUI
     customPanel board;
     JPanel p1;
     JPanel p2;
+    JLabel logo;
     JMenu menu;
     JMenuBar menu_bar;
+    JMenuItem new_game;
+    JMenuItem save_game;
+    JMenuItem load_game;
+    JMenuItem exit;
     Controller controller;
     URL imageURL;
     Image image;  // used for different images
@@ -52,8 +58,8 @@ public class GraphicsUI
         frame = new JFrame("Payday");
 
         board = new customPanel();
-        frame.setVisible(true);
         frame.add(board);
+        frame.setVisible(true);
         board.paintComponent(board.getGraphics());
 
         // expand the window to background image size
@@ -69,14 +75,27 @@ public class GraphicsUI
                         .addComponent(board, GroupLayout.PREFERRED_SIZE, 685, GroupLayout.PREFERRED_SIZE)
         );
 
+        menu_bar = new JMenuBar();
+        menu = new JMenu("Game");
+        new_game = new JMenuItem("New Game");
+        load_game = new JMenuItem("Load Game");
+        save_game = new JMenuItem("Save Game");
+        exit = new JMenuItem("Exit");
+
+        menu.add(new_game);
+        menu.add(load_game);
+        menu.add(save_game);
+        menu.add(exit);
+        menu_bar.add(menu);
+        frame.setJMenuBar(menu_bar);
+
+
         board.repaint();
         frame.pack();
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        //imageURL = loader.getResource("resources/images/logo.png");
-
-       // image = new ImageIcon(imageURL).getImage();
-
+        frame.setIconImage(new ImageIcon(Objects.requireNonNull(loader.getResource("resources/images/logo.png"))).getImage());
+        frame.setResizable(false);
     }
 
 
