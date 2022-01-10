@@ -132,20 +132,16 @@ public class GraphicsUI {
 
         p1 = new JDesktopPane();
 
-       // p1_name.setBounds(new Rectangle(new Point(width - 550 + 3, 20)));
-
         p1.setLayout(new BorderLayout());
 
         p1_name.setFont(new Font(null, Font.BOLD, 20));
 
         p1.add(p1_name, BorderLayout.NORTH);
 
-        p1.setBounds(width - 550, 20, width / 4, 255);
+        p1.setBounds(width * 2 / 3 + 50, 10, width / 4, height / 3);
 
 
         p2 = new JDesktopPane();
-
-        //p2_name.setBounds(new Rectangle(new Point(width - 550 + 3, 20)));
 
         p2.setLayout(new BorderLayout());
 
@@ -153,7 +149,7 @@ public class GraphicsUI {
 
         p2.add(p2_name, BorderLayout.NORTH);
 
-        p2.setBounds(width - 550, 700, width / 4, 255);
+        p2.setBounds(width * 2 / 3 + 50, height / 2 + 25, width / 4, height / 3);
 
         board.add(p1);
         board.add(p2);
