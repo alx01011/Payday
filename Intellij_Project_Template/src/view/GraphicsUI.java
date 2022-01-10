@@ -142,7 +142,7 @@ public class GraphicsUI {
 
         p2.add(p2_name, BorderLayout.NORTH);
 
-        p2.setBounds(width * 2 / 3 + 50, height / 2 + 25, width / 4, height / 3);
+        p2.setBounds(width * 2 / 3 + 50, height - (height / 3) - 70 , width / 4, height / 3);
 
         board.add(p1);
         board.add(p2);

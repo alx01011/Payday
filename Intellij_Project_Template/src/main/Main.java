@@ -1,7 +1,5 @@
 package main;
 
-import jdk.nashorn.internal.scripts.JD;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -22,16 +20,33 @@ public class Main {
         Image bg = new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/bg_green.png"))).getImage();
 
         customPanel p = new customPanel(bg.getScaledInstance(1500, 850, Image.SCALE_SMOOTH));
+        JDesktopPane p1 = new JDesktopPane();
+        JDesktopPane p2 = new JDesktopPane();
+        p1.setLayout(new BorderLayout());
+        p2.setLayout(new BorderLayout());
 
+
+        JLabel l1 = new JLabel();
         JLabel logo = new JLabel();
+        JLabel l2 = new JLabel();
 
-        Image tmp = new ImageIcon(cldr.getResource("resources/images/logo.png")).getImage();
+        Image foo = new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/asfaleia.jpg"))).getImage();
 
+        Image tmp = new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/logo.png"))).getImage();
+
+        p.setLayout(new BorderLayout(20,20));
+
+        l2.setIcon(new ImageIcon(tmp));
         logo.setIcon(new ImageIcon(tmp));
+        l1.setIcon(new ImageIcon(foo));
 
-        logo.setBounds(new Rectangle(new Point(0, 0),logo.getPreferredSize()));
+        //logo.setBounds(new Rectangle(new Point(0, 0),logo.getPreferredSize()));
 
-        p.add(logo);
+        p.add(logo, BorderLayout.PAGE_START);
+        p1.add(l1, BorderLayout.PAGE_START);
+        p2.add(l2, BorderLayout.CENTER);
+        p.add(p1, BorderLayout.EAST);
+        p.add(p2, BorderLayout.EAST);
 
 
         f.setVisible(true);
