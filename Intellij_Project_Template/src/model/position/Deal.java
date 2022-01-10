@@ -3,6 +3,8 @@ package model.position;
 import enums.Days;
 import model.player.Player;
 
+import java.net.URL;
+
 /**
  * Deal position
  * @version 1.0
@@ -22,7 +24,7 @@ public class Deal extends Position{
      */
 
 
-    public Deal(Days day, String imageURL, int index) {
+    public Deal(Days day, URL imageURL, int index) {
         super(day, imageURL, index);
     }
 

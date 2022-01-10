@@ -3,6 +3,8 @@ package model.position;
 import enums.Days;
 import model.player.Player;
 
+import java.net.URL;
+
 /**
  * Buyer position
  * @version 1.0
@@ -21,7 +23,7 @@ public class Buyer extends Position
      * @Precondition day and URL are not null and index is positive or zero
      * @Postcondition A new instance of buyer is created
      */
-    public Buyer(Days day, String imageURL, int index) {
+    public Buyer(Days day, URL imageURL, int index) {
         super(day, imageURL, index);
     }
 

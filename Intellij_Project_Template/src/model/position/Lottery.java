@@ -3,6 +3,8 @@ package model.position;
 import enums.Days;
 import model.player.Player;
 
+import java.net.URL;
+
 /**
  * Lottery position
  * @version 1.0
@@ -20,7 +22,7 @@ public class Lottery extends Position{
      * @Precondition day and URL are not null and index is positive or zero
      * @Postcondition A new instance of lottery is created
      */
-    public Lottery(Days day, String imageURL, int index) {
+    public Lottery(Days day, URL imageURL, int index) {
         super(day, imageURL, index);
     }
 

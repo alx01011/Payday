@@ -3,6 +3,8 @@ package model.position;
 import enums.Days;
 import model.player.Player;
 
+import java.net.URL;
+
 /**
  * Payday position
  * @version 1.0
@@ -19,8 +21,8 @@ public class Payday extends Position
      * @Precondition imageURL is not null
      * @Postcondition A new payday position is created
      */
-    public Payday(String imageURL) {
-        super(Days.WEDNESDAY, imageURL, 31); // by defaults payday is on Wednesday the 31st
+    public Payday(URL imageURL) {
+        super(Days.Wednes, imageURL, 31); // by defaults payday is on Wednesday the 31st
     }
 
     /**

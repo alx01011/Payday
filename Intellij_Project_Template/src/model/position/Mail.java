@@ -5,6 +5,8 @@ import model.card.Card;
 import model.card.mailCards.MailCard;
 import model.player.Player;
 
+import java.net.URL;
+
 /**
  * Message position
  * @version 1.0
@@ -12,6 +14,8 @@ import model.player.Player;
  */
 
 public class Mail extends Position {
+
+    private final int cardAmount;
 
     /**
      * Creates a new message position instance
@@ -22,8 +26,9 @@ public class Mail extends Position {
      * @Precondition day and URL are not null and index is positive or zero
      * @Postcondition A new instance of Mail is created
      */
-    public Mail(Days day, String imageURL, int index) {
+    public Mail(Days day, URL imageURL, int index, int cardAmount) {
         super(day, imageURL, index);
+        this.cardAmount = cardAmount;
     }
 
     /**
@@ -39,5 +44,10 @@ public class Mail extends Position {
         MailCard mail; // random mail card
     }
 
+
+    public int getCardAmount()
+    {
+        return cardAmount;
+    }
 
 }

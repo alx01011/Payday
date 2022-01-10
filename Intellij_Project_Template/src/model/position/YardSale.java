@@ -3,6 +3,8 @@ package model.position;
 import enums.Days;
 import model.player.Player;
 
+import java.net.URL;
+
 /**
  * YardSale position
  * @version 1.0
@@ -21,7 +23,7 @@ public class YardSale extends Position{
      * @Postcondition A new instance of YardSale is created
      */
 
-    public YardSale(Days day, String imageURL, int index) {
+    public YardSale(Days day, URL imageURL, int index) {
         super(day, imageURL, index);
     }
 

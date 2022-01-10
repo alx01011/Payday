@@ -3,6 +3,8 @@ package model.position;
 import enums.Days;
 import model.player.Player;
 
+import java.net.URL;
+
 /**
  * Family casino position
  * @version 1.0
@@ -22,7 +24,7 @@ public class FamilyCasino extends Position
      * @Precondition day and URL are not null and index is positive or zero
      * @Postcondition A new instance of family casino is created
      */
-    public FamilyCasino(Days day, String imageURL, int index) {
+    public FamilyCasino(Days day, URL imageURL, int index) {
         super(day, imageURL, index);
     }
 

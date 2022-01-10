@@ -3,6 +3,8 @@ package model.position;
 import enums.Days;
 import model.player.Player;
 
+import java.net.URL;
+
 /**
  * RadioContest position
  * @version 1.0
@@ -22,7 +24,7 @@ public class RadioContest extends Position
      * @Postcondition A new instance of RadioContest is created
      */
 
-    public RadioContest(Days day, String imageURL, int index) {
+    public RadioContest(Days day, URL imageURL, int index) {
         super(day, imageURL, index);
     }
 
