@@ -52,6 +52,18 @@ public class GraphicsUI {
         cldr = this.getClass().getClassLoader();
         width = Toolkit.getDefaultToolkit().getScreenSize().width - 200;
         height = Toolkit.getDefaultToolkit().getScreenSize().height - 50;
+        frame = new JFrame("Payday");
+        board = new customPanel();
+        p1 = new JDesktopPane();
+        menu_bar = new JMenuBar();
+        menu = new JMenu("Game");
+        new_game = new JMenuItem("New Game");
+        load_game = new JMenuItem("Load Game");
+        save_game = new JMenuItem("Save Game");
+        exit = new JMenuItem("Exit");
+        logo = new JLabel();
+
+
 
         initialize_fields();
     }
@@ -64,27 +76,12 @@ public class GraphicsUI {
      */
 
     private void initialize_fields() {
-        frame = new JFrame("Payday");
         frame.setPreferredSize(new Dimension(width, height));
 
         bg = new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/bg_green.png"))).getImage();
 
         bg = bg.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-
-
-        board = new customPanel(bg);
-
-
-        // expand the window to background image size
-
-
-
-        menu_bar = new JMenuBar();
-        menu = new JMenu("Game");
-        new_game = new JMenuItem("New Game");
-        load_game = new JMenuItem("Load Game");
-        save_game = new JMenuItem("Save Game");
-        exit = new JMenuItem("Exit");
+        board.setBg(bg); // set the background image
 
         menu.add(new_game);
         menu.add(load_game);
@@ -95,8 +92,6 @@ public class GraphicsUI {
 
         configure_menu_options();
 
-        logo = new JLabel();
-
         Image tmp = new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/logo.png"))).getImage();
 
         tmp = tmp.getScaledInstance(width * 3 / 5 + 50 , height / 6 , Image.SCALE_SMOOTH);
@@ -106,7 +101,6 @@ public class GraphicsUI {
         logo.setBounds(new Rectangle(new Point(0, 0),logo.getPreferredSize()));
 
         board.add(logo);
-
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.add(board);
@@ -130,7 +124,6 @@ public class GraphicsUI {
         p1_name = new JLabel("  Player1");
         p2_name = new JLabel("  Player2");
 
-        p1 = new JDesktopPane();
 
         p1.setLayout(new BorderLayout());
 
@@ -209,9 +202,9 @@ public class GraphicsUI {
 
     class customPanel extends JDesktopPane {
 
-        private final Image bg;
+        private Image bg;
 
-        public customPanel(Image bg)
+        public void setBg(Image bg)
         {
             this.bg = bg;
         }
