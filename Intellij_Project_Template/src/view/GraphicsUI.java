@@ -19,11 +19,13 @@ public class GraphicsUI {
     Controller cntrl;
     JFrame frame;
     customPanel base;
+    customPanel[] tiles;
     JDesktopPane p1;
     JDesktopPane p2;
     JDesktopPane board;
     JDesktopPane[] pos;
     JLabel logo;
+    JLabel pawn_blue, pawn_yellow;
     JMenu menu;
     JMenuBar menu_bar;
     JMenuItem new_game;
@@ -57,6 +59,7 @@ public class GraphicsUI {
         cntrl = new Controller();
         frame = new JFrame("Payday");
         base = new customPanel();
+        tiles = new customPanel[MAX_POSITION];
         board = new JDesktopPane();
         p1 = new JDesktopPane();
         menu_bar = new JMenuBar();
@@ -67,6 +70,10 @@ public class GraphicsUI {
         exit = new JMenuItem("Exit");
         logo = new JLabel();
         pos = new JDesktopPane[MAX_POSITION];
+        pawn_blue = new JLabel();
+        pawn_yellow = new JLabel();
+
+
 
 
 
@@ -101,16 +108,22 @@ public class GraphicsUI {
 
         tmp = tmp.getScaledInstance(width * 3 / 5 + 50 , height / 6 , Image.SCALE_SMOOTH);
 
+
         logo.setIcon(new ImageIcon(tmp));
 
         logo.setBounds(new Rectangle(new Point(0, 0),logo.getPreferredSize()));
 
         base.add(logo);
 
+        tmp =  new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/pawn_blue.png"))).getImage().getScaledInstance(50, 50 ,Image.SCALE_SMOOTH);
+        pawn_blue.setIcon(new ImageIcon(tmp));
+
+        tmp =  new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/pawn_yellow.png"))).getImage().getScaledInstance(50, 50 ,Image.SCALE_SMOOTH);
+        pawn_yellow.setIcon(new ImageIcon(tmp));
+
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.add(base);
         frame.setVisible(true);
-        base.paintComponent(base.getGraphics());
 
         players();
         board_positions();
@@ -123,7 +136,6 @@ public class GraphicsUI {
 
         frame.setIconImage(new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/logo.png"))).getImage());
         frame.setResizable(false);
-        System.err.println(pos[0].getSize());
 
     }
 
@@ -158,9 +170,6 @@ public class GraphicsUI {
 
         base.add(p1);
         base.add(p2);
-
-
-
     }
 
     /**
@@ -175,36 +184,39 @@ public class GraphicsUI {
         board.setLayout(new GridLayout(0, 7));
 
         JTextField tileInfo = new JTextField();
-        JLabel tile = new JLabel();
 
         pos[0] = new JDesktopPane();
         pos[0].setLayout(new BorderLayout());
+        tiles[0] = new customPanel();
+
         tileInfo.setText("Start");
         tileInfo.setBackground(Color.YELLOW);
         pos[0].add(tileInfo, BorderLayout.NORTH);
         board.add(pos[0]);
-        Image tmp = new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/start.png"))).getImage().getScaledInstance(153, 140 ,Image.SCALE_SMOOTH);
-        tile.setIcon(new ImageIcon(tmp));
+        Image tmp = new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/start.png"))).getImage().getScaledInstance(width / 11, height / 7 ,Image.SCALE_SMOOTH);
+        tiles[0].setBg(tmp);
+        pos[0].add(tiles[0]);
 
-        pos[0].add(tile);
+        tiles[0].setLayout(new BorderLayout());
+        tiles[0].add(pawn_blue, BorderLayout.CENTER);
+        tiles[0].add(pawn_yellow, BorderLayout.EAST);
 
         for (int i = 1; i < MAX_POSITION; i++)
         {
             tileInfo = new JTextField();
-            tile = new JLabel();
+            tiles[i] = new customPanel();
 
             pos[i] = new JDesktopPane();
             pos[i].setLayout(new BorderLayout());
             tileInfo.setText(cntrl.positions.get(i - 1).getDay().toString() + " " + cntrl.positions.get(i - 1).getDay_index());
             tileInfo.setBackground(Color.YELLOW);
             pos[i].add(tileInfo, BorderLayout.NORTH);
-            tmp = new ImageIcon(Objects.requireNonNull(cntrl.positions.get(i - 1).getImageURL())).getImage().getScaledInstance(153, 140, Image.SCALE_SMOOTH);
-            tile.setIcon(new ImageIcon(tmp));
-            pos[i].add(tile);
+            tmp = new ImageIcon(Objects.requireNonNull(cntrl.positions.get(i - 1).getImageURL())).getImage().getScaledInstance(width / 11, height / 7, Image.SCALE_SMOOTH);
+            tiles[i].setBg(tmp);
+            pos[i].add(tiles[i]);
 
             board.add(pos[i]);
         }
-
     }
 
     /**
