@@ -131,7 +131,7 @@ public class GraphicsUI {
 
         p1.add(p1_name, BorderLayout.NORTH);
 
-        p1.setBounds(width * 2 / 3 + 50, 10, width / 4, height / 3);
+        p1.setBounds(width * 2 / 3 + 50, 18, width / 4, height / 3);
 
 
         p2 = new JDesktopPane();
@@ -145,7 +145,6 @@ public class GraphicsUI {
         p2.setBounds(width * 2 / 3 + 50, height - height / 3 - (height >= 1000 ? height / 13 : height / 7)  ,
                 width / 4, height / 3);
 
-        System.out.println(height);
 
         board.add(p1);
         board.add(p2);
