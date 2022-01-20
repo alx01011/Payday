@@ -2,6 +2,7 @@ package view;
 
 
 import controller.Controller;
+import model.player.Player;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +18,7 @@ import java.util.Objects;
 
 public class GraphicsUI {
     Controller cntrl;
+    Player player_blue, player_yellow;
     JFrame frame;
     customPanel base;
     customPanel[] tiles;
@@ -24,6 +26,10 @@ public class GraphicsUI {
     JDesktopPane p2;
     JDesktopPane board;
     JDesktopPane[] pos;
+    JPanel dealCard, mailCard;
+    JButton getDealCard, getMailCard;
+    JPanel infoBox;
+    JTextField[] gameInfo;
     JLabel logo;
     JLabel pawn_blue, pawn_yellow;
     JMenu menu;
@@ -39,6 +45,7 @@ public class GraphicsUI {
 
     private SundayFootballDayUI sundayFootballDayUI;
     private ThursdayRiseInCryptoUI thursdayRiseInCryptoUI;
+
 
     private final int width;
     private final int height;
@@ -57,11 +64,25 @@ public class GraphicsUI {
         width = Toolkit.getDefaultToolkit().getScreenSize().width - 200;
         height = Toolkit.getDefaultToolkit().getScreenSize().height - 50;
         cntrl = new Controller();
+        player_blue =  new Player("P_A");
+        player_yellow = new Player("P_Y");
+        //player_blue =  new Player(JOptionPane.showInputDialog("Player A : Name"));
+       // player_yellow = new Player(JOptionPane.showInputDialog("Player B : Name"));
+
+        Object[] options = { 1, 2, 3};
+       cntrl.months_left = Integer.parseInt(JOptionPane.showInputDialog(null, "Choose", "Menu", JOptionPane.PLAIN_MESSAGE, null, options, options[0]).toString());
+
         frame = new JFrame("Payday");
         base = new customPanel();
         tiles = new customPanel[MAX_POSITION];
         board = new JDesktopPane();
         p1 = new JDesktopPane();
+        infoBox = new JPanel();
+        mailCard = new JPanel();
+        dealCard = new JPanel();
+        getDealCard = new JButton();
+        getMailCard = new JButton();
+        gameInfo = new JTextField[4]; // info / months / turn / instruction
         menu_bar = new JMenuBar();
         menu = new JMenu("Game");
         new_game = new JMenuItem("New Game");
@@ -74,10 +95,10 @@ public class GraphicsUI {
         pawn_yellow = new JLabel();
 
 
-
-
-
         initialize_fields();
+
+        System.err.println(cntrl.months_left);
+
     }
 
     /**
@@ -126,6 +147,8 @@ public class GraphicsUI {
         frame.setVisible(true);
 
         players();
+        info_box();
+        card_buttons();
         board_positions();
 
         base.add(board);
@@ -143,8 +166,8 @@ public class GraphicsUI {
     {
         JLabel p1_name, p2_name;
 
-        p1_name = new JLabel("  Player1");
-        p2_name = new JLabel("  Player2");
+        p1_name = new JLabel(player_blue.getName());
+        p2_name = new JLabel(player_yellow.getName());
 
 
         p1.setLayout(new BorderLayout());
@@ -153,7 +176,8 @@ public class GraphicsUI {
 
         p1.add(p1_name, BorderLayout.NORTH);
 
-        p1.setBounds(width * 2 / 3 + 50, 18, width / 4, height / 3);
+        p1.setBounds(width * 2 / 3 + 50, 18, width / 4, height / 4 + 50);
+        p1.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.BLUE));
 
 
         p2 = new JDesktopPane();
@@ -164,13 +188,75 @@ public class GraphicsUI {
 
         p2.add(p2_name, BorderLayout.NORTH);
 
-        p2.setBounds(width * 2 / 3 + 50, height - height / 3 - (height >= 1000 ? height / 13 : height / 7)  ,
-                width / 4, height / 3);
+        p2.setBounds(width * 2 / 3 + 50, height - height / 3 - (height >= 1000 ? height / 23 : height / 15)  ,
+                width / 4, height / 4 + 50);
+        p2.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.YELLOW));
+
 
 
         base.add(p1);
         base.add(p2);
     }
+
+    /**
+     * Adds the info box to the frame
+     */
+
+    private void info_box()
+    {
+        infoBox.setBounds(width * 2 / 3 + 50, height - height / 3 - height / 3 , width / 4, height / 6);
+        infoBox.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.BLACK));
+        infoBox.setLayout(new GridLayout(4, 0));
+        infoBox.setBorder(null);
+
+        gameInfo[0] = new JTextField(" Info box:");
+        gameInfo[0].setFont(new Font(null, Font.BOLD, 16));
+
+        gameInfo[1] = new JTextField(" " + cntrl.months_left + " Month(s) Left");
+        gameInfo[1].setFont(new Font(null, Font.BOLD, 14));
+
+        gameInfo[2] = new JTextField(" Turn :");
+        gameInfo[2].setFont(new Font(null, Font.BOLD, 14));
+
+        gameInfo[3] = new JTextField(" -->A new game has started");
+        gameInfo[3].setFont(new Font(null, Font.BOLD, 14));
+
+        for (JTextField t : gameInfo) // clear the borders and add to info box
+        {
+            t.setBorder(BorderFactory.createEmptyBorder());
+            infoBox.add(t);
+        }
+        base.add(infoBox);
+    }
+
+    /**
+     * Adds the card buttons to the board
+     */
+
+    private void card_buttons()
+    {
+        Image tmp = new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/mailCard.png"))).getImage()
+                .getScaledInstance(180, 90, Image.SCALE_SMOOTH);;
+        getMailCard.setIcon(new ImageIcon(tmp));
+
+        tmp = new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/dealCard.png"))).getImage()
+                .getScaledInstance(180, 90, Image.SCALE_SMOOTH);
+        getDealCard.setIcon(new ImageIcon(tmp));
+        // add action listeners
+
+        mailCard.add(getMailCard);
+        dealCard.add(getDealCard);
+
+        mailCard.setBounds(width * 2 / 3 + 50, height - height / 3 - height / 6 + 10, 180, 100);
+        dealCard.setBounds(width * 2 / 3 + 50 + 250, height - height / 3 - height / 6 + 10, 180,  100);
+
+
+
+        base.add(mailCard);
+        base.add(dealCard);
+
+    }
+
 
     /**
      * Initializes the board positions
