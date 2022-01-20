@@ -180,12 +180,6 @@ public class Controller
 
         positions.add(new Payday(cldr.getResource("resources/images/pay.png")));
 
-        for (Position position : positions) {
-            System.out.println(position.getDay() + " " + position.getDay_index());
-            System.out.println(position.getClass().getSimpleName() + "\n");
-
-        }
-
     }
 
     public static void main(String[] args)
