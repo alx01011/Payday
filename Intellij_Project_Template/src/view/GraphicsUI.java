@@ -16,10 +16,12 @@ import java.util.Objects;
  */
 
 public class GraphicsUI {
+    Controller cntrl;
     JFrame frame;
-    customPanel board;
+    customPanel base;
     JDesktopPane p1;
     JDesktopPane p2;
+    JDesktopPane board;
     JDesktopPane[] pos;
     JLabel logo;
     JMenu menu;
@@ -52,8 +54,10 @@ public class GraphicsUI {
         cldr = this.getClass().getClassLoader();
         width = Toolkit.getDefaultToolkit().getScreenSize().width - 200;
         height = Toolkit.getDefaultToolkit().getScreenSize().height - 50;
+        cntrl = new Controller();
         frame = new JFrame("Payday");
-        board = new customPanel();
+        base = new customPanel();
+        board = new JDesktopPane();
         p1 = new JDesktopPane();
         menu_bar = new JMenuBar();
         menu = new JMenu("Game");
@@ -62,6 +66,7 @@ public class GraphicsUI {
         save_game = new JMenuItem("Save Game");
         exit = new JMenuItem("Exit");
         logo = new JLabel();
+        pos = new JDesktopPane[MAX_POSITION];
 
 
 
@@ -81,7 +86,7 @@ public class GraphicsUI {
         bg = new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/bg_green.png"))).getImage();
 
         bg = bg.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-        board.setBg(bg); // set the background image
+        base.setBg(bg); // set the background image
 
         menu.add(new_game);
         menu.add(load_game);
@@ -100,21 +105,26 @@ public class GraphicsUI {
 
         logo.setBounds(new Rectangle(new Point(0, 0),logo.getPreferredSize()));
 
-        board.add(logo);
+        base.add(logo);
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.add(board);
+        frame.add(base);
         frame.setVisible(true);
-        board.paintComponent(board.getGraphics());
+        base.paintComponent(base.getGraphics());
 
         players();
+        board_positions();
 
-        board.repaint();
+        base.add(board);
+
+        base.repaint();
         frame.pack();
 
 
         frame.setIconImage(new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/logo.png"))).getImage());
         frame.setResizable(false);
+        System.err.println(pos[0].getSize());
+
     }
 
     private void players()
@@ -146,8 +156,9 @@ public class GraphicsUI {
                 width / 4, height / 3);
 
 
-        board.add(p1);
-        board.add(p2);
+        base.add(p1);
+        base.add(p2);
+
 
 
     }
@@ -158,12 +169,42 @@ public class GraphicsUI {
 
     private void board_positions()
     {
-        GridLayout gridLayout = new GridLayout(0, 7);
+        board.setBounds(10, logo.getHeight() ,logo.getWidth(), height - logo.getHeight() );
+        board.setSize(logo.getWidth() - 10, height - height / 4 + 30);
+        board.setOpaque(false);
+        board.setLayout(new GridLayout(0, 7));
 
-        for (int i = 0; i < MAX_POSITION; i++)
+        JTextField tileInfo = new JTextField();
+        JLabel tile = new JLabel();
+
+        pos[0] = new JDesktopPane();
+        pos[0].setLayout(new BorderLayout());
+        tileInfo.setText("Start");
+        tileInfo.setBackground(Color.YELLOW);
+        pos[0].add(tileInfo, BorderLayout.NORTH);
+        board.add(pos[0]);
+        Image tmp = new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/start.png"))).getImage().getScaledInstance(153, 140 ,Image.SCALE_SMOOTH);
+        tile.setIcon(new ImageIcon(tmp));
+
+        pos[0].add(tile);
+
+        for (int i = 1; i < MAX_POSITION; i++)
         {
+            tileInfo = new JTextField();
+            tile = new JLabel();
+
             pos[i] = new JDesktopPane();
+            pos[i].setLayout(new BorderLayout());
+            tileInfo.setText(cntrl.positions.get(i - 1).getDay().toString() + " " + cntrl.positions.get(i - 1).getDay_index());
+            tileInfo.setBackground(Color.YELLOW);
+            pos[i].add(tileInfo, BorderLayout.NORTH);
+            tmp = new ImageIcon(Objects.requireNonNull(cntrl.positions.get(i - 1).getImageURL())).getImage().getScaledInstance(153, 140, Image.SCALE_SMOOTH);
+            tile.setIcon(new ImageIcon(tmp));
+            pos[i].add(tile);
+
+            board.add(pos[i]);
         }
+
     }
 
     /**
