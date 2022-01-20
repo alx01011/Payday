@@ -52,6 +52,7 @@ public class Controller
 
         init_positions();
         init_cardStacks();
+        init_board();
     }
 
 
