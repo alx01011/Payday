@@ -21,16 +21,26 @@ public class GraphicsUI {
     Player player_blue, player_yellow;
     JFrame frame;
     customPanel base;
+    customPanel jackpot;
     customPanel[] tiles;
     JDesktopPane p1;
     JDesktopPane p2;
     JDesktopPane board;
     JDesktopPane[] pos;
     JPanel dealCard, mailCard;
+    JPanel p1_info;
+    JTextField[] p1_data;
+    JTextField[] p2_data;
+    JTextField jackpot_amount;
     JButton getDealCard, getMailCard;
+    JButton rollDice_p1, rollDice_p2;
+    JButton dealCards_p1, dealCards_p2;
+    JButton getLoan_p1, getLoan_p2;
+    JButton endTurn_p1, endTurn_p2;
     JPanel infoBox;
     JTextField[] gameInfo;
     JLabel logo;
+    JLabel dice_p1, dice_p2;
     JLabel pawn_blue, pawn_yellow;
     JMenu menu;
     JMenuBar menu_bar;
@@ -39,9 +49,8 @@ public class GraphicsUI {
     JMenuItem load_game;
     JMenuItem exit;
     Controller controller;
-    URL imageURL;
-    Image image, bg;  // used for different images
-    ClassLoader cldr;
+    Image bg;  // used for different images
+    ClassLoader cldr; // class loader to get the path to images
 
     private SundayFootballDayUI sundayFootballDayUI;
     private ThursdayRiseInCryptoUI thursdayRiseInCryptoUI;
@@ -56,7 +65,7 @@ public class GraphicsUI {
      * Creates a new window and adds buttons and panels for the players and board also starts the game
      *
      * @type Constructor
-     * @Postcondition a new graphicsui instance is created
+     * @Postcondition a new graphics ui instance is created
      */
 
     public GraphicsUI() {
@@ -64,25 +73,38 @@ public class GraphicsUI {
         width = Toolkit.getDefaultToolkit().getScreenSize().width - 200;
         height = Toolkit.getDefaultToolkit().getScreenSize().height - 50;
         cntrl = new Controller();
-        player_blue =  new Player("P_A");
-        player_yellow = new Player("P_Y");
-        //player_blue =  new Player(JOptionPane.showInputDialog("Player A : Name"));
-       // player_yellow = new Player(JOptionPane.showInputDialog("Player B : Name"));
+
+        cntrl.p1.setName(JOptionPane.showInputDialog("Player A : Name"));
+        cntrl.p2.setName(JOptionPane.showInputDialog("Player B : Name"));
 
         Object[] options = { 1, 2, 3};
-       cntrl.months_left = Integer.parseInt(JOptionPane.showInputDialog(null, "Choose", "Menu", JOptionPane.PLAIN_MESSAGE, null, options, options[0]).toString());
+        cntrl.months_left = Integer.parseInt(JOptionPane.showInputDialog(null, "Choose", "Menu", JOptionPane.PLAIN_MESSAGE, null, options, options[0]).toString());
 
         frame = new JFrame("Payday");
         base = new customPanel();
+        jackpot = new customPanel();
+        jackpot_amount = new JTextField();
         tiles = new customPanel[MAX_POSITION];
         board = new JDesktopPane();
         p1 = new JDesktopPane();
+        p2 = new JDesktopPane();
         infoBox = new JPanel();
         mailCard = new JPanel();
         dealCard = new JPanel();
         getDealCard = new JButton();
         getMailCard = new JButton();
         gameInfo = new JTextField[4]; // info / months / turn / instruction
+        p1_info = new JPanel();
+        p1_data = new JTextField[3]; // money / loan /  bills
+        p2_data = new JTextField[3]; // money / loan /  bills
+
+        for (int i = 0; i < p1_data.length; i++)
+        {
+            p1_data[i] = new JTextField();
+            p2_data[i] = new JTextField();
+        }
+
+        //p2_info = new JTextField[3];
         menu_bar = new JMenuBar();
         menu = new JMenu("Game");
         new_game = new JMenuItem("New Game");
@@ -94,11 +116,8 @@ public class GraphicsUI {
         pawn_blue = new JLabel();
         pawn_yellow = new JLabel();
 
-
         initialize_fields();
-
-        System.err.println(cntrl.months_left);
-
+        init_session();
     }
 
     /**
@@ -142,11 +161,12 @@ public class GraphicsUI {
         tmp =  new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/pawn_yellow.png"))).getImage().getScaledInstance(50, 50 ,Image.SCALE_SMOOTH);
         pawn_yellow.setIcon(new ImageIcon(tmp));
 
+
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.add(base);
         frame.setVisible(true);
 
-        players();
+        create_player_panels();
         info_box();
         card_buttons();
         board_positions();
@@ -162,41 +182,192 @@ public class GraphicsUI {
 
     }
 
-    private void players()
-    {
-        JLabel p1_name, p2_name;
+    /**
+     * Creates panels for the players
+     *
+     * @type Transformer
+     * @Precondition Fields are initialized
+     * @Postcondition panels are created
+     */
 
-        p1_name = new JLabel(player_blue.getName());
-        p2_name = new JLabel(player_yellow.getName());
+    private void create_player_panels()
+        {
+        JTextField p1_name = new JTextField(cntrl.p1.getName());
+
+        p1_name.setFont(new Font(null, Font.BOLD, 16));
+
+        p1_name.setBorder(BorderFactory.createEmptyBorder());
 
 
         p1.setLayout(new BorderLayout());
 
-        p1_name.setFont(new Font(null, Font.BOLD, 20));
+        p1.add(p1_name, BorderLayout.NORTH); // place on top
 
-        p1.add(p1_name, BorderLayout.NORTH);
+        JDesktopPane info_p1 = new JDesktopPane();
+
+        info_p1.setLayout(new BoxLayout(info_p1, BoxLayout.Y_AXIS));
+
+        p1_data[0].setText("  Money: " + cntrl.p1.getBank_balance());
+        p1_data[1].setText("  Loan: " + cntrl.p1.getLoans());
+        p1_data[2].setText("  Bills: " + cntrl.p1.getBills());
+
+
+        for (JTextField p1Datum : p1_data) {
+            p1Datum.setEditable(false);
+            p1Datum.setOpaque(false);
+            p1Datum.setBorder(null);
+            p1Datum.setFont(p1Datum.getFont().deriveFont(14f));
+        }
+
+
+        for (JTextField p1_datum : p1_data) {
+            p1_datum.setBorder(BorderFactory.createEmptyBorder());
+            info_p1.add(p1_datum);
+        }
+
+
+        rollDice_p1 = new JButton("Roll Dice");
+        dealCards_p1 = new JButton("My Deal Cards");
+
+        rollDice_p1.addActionListener(e -> update_dice(dice_p1));
+
+        info_p1.add(rollDice_p1);
+        info_p1.add(Box.createVerticalStrut(5));
+
+        info_p1.add(dealCards_p1);
+        info_p1.add(Box.createVerticalStrut(5));
+
+
+
+        JDesktopPane bottomButtons_p1 = new JDesktopPane();
+
+        bottomButtons_p1.setLayout(new BoxLayout(bottomButtons_p1, BoxLayout.X_AXIS));
+
+        getLoan_p1 = new JButton("Get Loan");
+
+        bottomButtons_p1.add(getLoan_p1);
+        bottomButtons_p1.add(Box.createHorizontalStrut(10));
+
+        endTurn_p1 = new JButton("End Turn");
+
+        endTurn_p1.addActionListener(e -> endTurn_listener(endTurn_p1, endTurn_p2, rollDice_p1, rollDice_p2));
+
+        bottomButtons_p1.add(endTurn_p1);
+
+
+        p1.add(info_p1, BorderLayout.CENTER);
+        p1.add(bottomButtons_p1, BorderLayout.SOUTH);
+
+        dice_p1 = new JLabel();
+
+        Image tmp = new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/dice-1.jpg"))).getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+
+        dice_p1.setIcon(new ImageIcon(tmp));
+        dice_p1.setBackground(Color.white);
+        dice_p1.setBorder(BorderFactory.createEmptyBorder());
+        dice_p1.setOpaque(true);
+
+        p1.add(dice_p1, BorderLayout.EAST);
+
 
         p1.setBounds(width * 2 / 3 + 50, 18, width / 4, height / 4 + 50);
         p1.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.BLUE));
 
 
-        p2 = new JDesktopPane();
+        // ------------------------------------------- P2
+
+        JTextField p2_name = new JTextField(cntrl.p2.getName());
+
+        p2_name.setFont(new Font(null, Font.BOLD, 16));
+
+        p2_name.setBorder(BorderFactory.createEmptyBorder());
+
 
         p2.setLayout(new BorderLayout());
 
-        p2_name.setFont(new Font(null, Font.BOLD, 20));
+        p2.add(p2_name, BorderLayout.NORTH); // place on top
 
-        p2.add(p2_name, BorderLayout.NORTH);
+        JDesktopPane info_p2 = new JDesktopPane();
+
+        info_p2.setLayout(new BoxLayout(info_p2, BoxLayout.Y_AXIS));
+
+        p2_data[0].setText("  Money: " + cntrl.p2.getBank_balance());
+        p2_data[1].setText("  Loan: " + cntrl.p2.getLoans());
+        p2_data[2].setText("  Bills: " + cntrl.p2.getBills());
+
+
+        for (JTextField p2Datum : p2_data) {
+            p2Datum.setEditable(false);
+            p2Datum.setOpaque(false);
+            p2Datum.setBorder(null);
+            p2Datum.setFont(p2Datum.getFont().deriveFont(14f));
+            p2Datum.setBorder(BorderFactory.createEmptyBorder());
+            info_p2.add(p2Datum);
+        }
+
+
+
+        rollDice_p2 = new JButton("Roll Dice");
+        dealCards_p2 = new JButton("My Deal Cards");
+
+        info_p2.add(rollDice_p2);
+        info_p2.add(Box.createVerticalStrut(5));
+
+        info_p2.add(dealCards_p2);
+        info_p2.add(Box.createVerticalStrut(5));
+
+
+
+        JDesktopPane bottomButtons_p2 = new JDesktopPane();
+
+        bottomButtons_p2.setLayout(new BoxLayout(bottomButtons_p2, BoxLayout.X_AXIS));
+
+        getLoan_p2 = new JButton("Get Loan");
+
+        bottomButtons_p2.add(getLoan_p2);
+        bottomButtons_p2.add(Box.createHorizontalStrut(10));
+
+        endTurn_p2 = new JButton("End Turn");
+
+        bottomButtons_p2.add(endTurn_p2);
+
+
+        p2.add(info_p2, BorderLayout.CENTER);
+        p2.add(bottomButtons_p2, BorderLayout.SOUTH);
+
+        dice_p2 = new JLabel();
+
+        tmp = new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/dice-1.jpg"))).getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+
+        dice_p2.setIcon(new ImageIcon(tmp));
+        dice_p2.setBackground(Color.white);
+        dice_p2.setBorder(BorderFactory.createEmptyBorder());
+        dice_p2.setOpaque(true);
+
+        p2.add(dice_p2, BorderLayout.EAST);
+
 
         p2.setBounds(width * 2 / 3 + 50, height - height / 3 - (height >= 1000 ? height / 23 : height / 15)  ,
                 width / 4, height / 4 + 50);
         p2.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.YELLOW));
 
 
-
         base.add(p1);
         base.add(p2);
     }
+
+    private void endTurn_listener(JButton end, JButton start, JButton dice_end, JButton dice_start)
+    {
+        cntrl.turn = (cntrl.turn == cntrl.p1 ? cntrl.p2 : cntrl.p1);
+
+        end.setEnabled(false);
+        start.setEnabled(true);
+
+        dice_end.setEnabled(false);
+        dice_start.setEnabled(true);
+
+    }
+
 
     /**
      * Adds the info box to the frame
@@ -236,7 +407,7 @@ public class GraphicsUI {
     private void card_buttons()
     {
         Image tmp = new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/mailCard.png"))).getImage()
-                .getScaledInstance(180, 90, Image.SCALE_SMOOTH);;
+                .getScaledInstance(180, 90, Image.SCALE_SMOOTH);
         getMailCard.setIcon(new ImageIcon(tmp));
 
         tmp = new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/dealCard.png"))).getImage()
@@ -261,6 +432,27 @@ public class GraphicsUI {
     /**
      * Initializes the board positions
      */
+
+
+    private void jackpot_position()
+    {
+        Image tmp = new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/jackpot.png"))).getImage().
+                getScaledInstance(200, 90 , Image.SCALE_SMOOTH);
+
+        jackpot.setBg(tmp);
+
+        jackpot.setLayout(new BorderLayout());
+        jackpot.setBounds(width * 2 / 5 , height - height / 3 -height / 23 + 200, 200, 100);
+
+        jackpot_amount.setText("Jackpot : ");
+
+        jackpot_amount.setBounds(width * 2 / 5, height - 20, 200, 100);
+        jackpot.add(jackpot_amount, BorderLayout.SOUTH);
+        jackpot_amount.setBorder(BorderFactory.createEmptyBorder());
+        jackpot_amount.setFont(new Font(null, Font.BOLD, 15));
+
+        base.add(jackpot);
+    }
 
     private void board_positions()
     {
@@ -303,6 +495,9 @@ public class GraphicsUI {
 
             board.add(pos[i]);
         }
+
+        jackpot_position();
+
     }
 
     /**
@@ -315,17 +510,33 @@ public class GraphicsUI {
                 System.exit(0));
     }
 
-    /**
-     * Creates panels for the players
-     *
-     * @type Transformer
-     * @Precondition Fields are initialized
-     * @Postcondition panels are created
-     */
+    private void update_dice(JLabel dice)
+    {
+        cntrl.turn.getDice().rollDice();
 
-    private void create_player_panels() {
+        int value = cntrl.turn.getDice().getValue();
 
+        Image tmp = new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/dice-" + value +".jpg"))).getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+
+        move_player(cntrl.turn, value);
+
+        dice.setIcon(new ImageIcon(tmp));
+        dice.repaint();
     }
+
+
+    private void move_player(Player p, int value)
+    {
+        int new_pos = cntrl.p1.getPosition() + value > 31 ? 0 : cntrl.p1.getPosition() + value;
+
+        if (p == cntrl.p1)
+            tiles[cntrl.p1.getPosition()].remove(pawn_blue);
+            tiles[cntrl.p1.getPosition()].repaint();
+            tiles[new_pos].add(pawn_blue, BorderLayout.CENTER);
+            tiles[new_pos].repaint();
+            cntrl.p1.setPosition(new_pos);
+    }
+
 
     /**
      * Starts a new game
@@ -336,7 +547,7 @@ public class GraphicsUI {
      */
 
     private void init_session() {
-
+        cntrl.turn.getDice().rollDice();
     }
 
     /**
@@ -367,6 +578,6 @@ public class GraphicsUI {
 
 class Main {
     public static void main(String[] args) {
-        GraphicsUI g = new GraphicsUI();
+        new GraphicsUI();
     }
 }

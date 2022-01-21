@@ -10,10 +10,10 @@ import model.dice.Dice;
 
 public class Player
 {
-    private final String name;
+    private       String name;
     private       int    bank_balance; // bank account balance
     private       int    loans; // bank loans
-    private       int    due; // bills
+    private       int    bills; // bills
     private       int    position; // players position on the board
     private       Player neighbor;
     private final Dice   dice;
@@ -31,9 +31,21 @@ public class Player
         this.name           = name;
         this.bank_balance   = 3500;
         this.loans          = 0;
-        this.due            = 0;
+        this.bills = 0;
         this.position       = 0; // original position at start square
         this.dice           = new Dice();
+    }
+
+    /**
+     * Sets a players name
+     * @param name players name
+     * @Precondition name is not null
+     * @Postcondition player name is changed
+     */
+
+    public void setName(String name)
+    {
+        this.name = name;
     }
 
     /**
@@ -126,20 +138,20 @@ public class Player
      * @return bill due
      */
 
-    public int getDue() {
-        return due;
+    public int getBills() {
+        return bills;
     }
 
     /**
      * Updates the bill money owed by the player
      * @type Transformer
-     * @param due new bills due
+     * @param bills new bills due
      * @Precondition Due field initialized
      * @Postcondition Due is returned
      */
 
-    public void setDue(int due) {
-        this.due = due;
+    public void setBills(int bills) {
+        this.bills = bills;
     }
 
     /**

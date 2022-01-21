@@ -42,6 +42,13 @@ public abstract class MailCard implements Card
         return amount;
     }
 
+    @Override
+
+    public void setValue(int amount)
+    {
+        this.amount = amount;
+    }
+
 
     /**
      * Returns a string with the card type

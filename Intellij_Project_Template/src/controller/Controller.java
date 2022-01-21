@@ -2,13 +2,18 @@ package controller;
 
 import enums.Days;
 import model.card.Card;
+import model.card.dealCards.DealCard;
+import model.card.mailCards.*;
 import model.player.Player;
 import model.position.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.Random;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Controller
@@ -22,9 +27,12 @@ public class Controller
     public Player p2;
     public Player turn;
     public int months_left;
-    public final LinkedList<Card> cardStack;
-    public final LinkedList<Card> rejectedCardStack;
+    public final LinkedList<Card> mailCardStack, dealCardStack;
+    public final LinkedList<Card> rejectedMailCardStack, rejectedDealCardStack;
     public final ArrayList<Position> positions;
+
+    LinkedList<String[][]> s;
+
     ClassLoader cldr;
 
 
@@ -42,8 +50,11 @@ public class Controller
         cldr = ClassLoader.getSystemClassLoader();
 
         positions = new ArrayList<>();
-        cardStack = new LinkedList<>();
-        rejectedCardStack = new LinkedList<>();
+        mailCardStack = new LinkedList<>();
+        dealCardStack = new LinkedList<>();
+        rejectedMailCardStack = new LinkedList<>();
+        rejectedDealCardStack = new LinkedList<>();
+
 
         // prompt for the months to be played
 
@@ -56,6 +67,7 @@ public class Controller
     }
 
 
+
     /**
      * Initializes the card stacks
      * @type Transformer
@@ -65,8 +77,24 @@ public class Controller
 
     private void init_cardStacks()
     {
+        // init mail cards
 
-        // add all the cards in the game in the stack
+        for (int i = 0; i < 8; i++)
+        {
+            mailCardStack.add(new PayTheNeighbor(0)); // amounts to be later determined
+            mailCardStack.add(new GetPaidByTheNeighbor(0));
+            mailCardStack.add(new Charity(0));
+            mailCardStack.add(new PayTheBill(0));
+            mailCardStack.add(new MoveToDB());
+            mailCardStack.add(new Advertisement(0));
+        }
+
+        // init deal cards
+
+        for (int i = 0; i < 20; i++)
+        {
+            dealCardStack.add(new DealCard(0, 0)); // amounts to be determined by the card
+        }
     }
 
     /**
@@ -187,6 +215,7 @@ public class Controller
         Controller ctrl = new Controller();
 
         ctrl.init_board();
+
     }
 
 

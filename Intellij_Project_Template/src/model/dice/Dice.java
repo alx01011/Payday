@@ -44,7 +44,7 @@ public class Dice
 
     public void rollDice()
     {
-        value = ((new Random().nextInt()) % 6 + 1);
+        value = ((new Random().nextInt(6))  + 1);
     }
 
 }

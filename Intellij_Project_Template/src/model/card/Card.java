@@ -18,6 +18,13 @@ public interface Card
     int getValue();
 
     /**
+     * Sets the card value
+     * @param value cards value
+     */
+
+    void setValue(int value);
+
+    /**
      * prints out the cards kind
      * @return card type
      */

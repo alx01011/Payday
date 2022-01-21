@@ -11,8 +11,8 @@ import model.player.Player;
 
 public class DealCard implements Card {
 
-    private final int BuyPrice;
-    private final int sellPrice;
+    private  int BuyPrice;
+    private  int sellPrice;
 
     /**
      * Create a new deal card instance
@@ -38,6 +38,11 @@ public class DealCard implements Card {
     @Override
     public int getValue() {
         return BuyPrice;
+    }
+
+    @Override
+    public void setValue(int value) {
+        BuyPrice = value;
     }
 
     /**
