@@ -2,6 +2,8 @@ package model.card.mailCards;
 
 import model.player.Player;
 
+import java.net.URL;
+
 /**
  * Get paid by your neighbor card
  * @version 1.0
@@ -17,9 +19,8 @@ public class GetPaidByTheNeighbor extends MailCard {
      * @Postcondition A new instance of GetPaidByTheNeighbor is created
      */
 
-    public GetPaidByTheNeighbor(int amount) {
-        super(amount, "GetPaidByTheNeighbor");
-    }
+    public GetPaidByTheNeighbor(int amount, String text, String acceptText, String imageURL) {
+        super(amount, text, acceptText,imageURL);    }
 
     /**
      * Get money from neighbor

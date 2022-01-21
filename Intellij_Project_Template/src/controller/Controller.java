@@ -31,7 +31,9 @@ public class Controller
     public final LinkedList<Card> rejectedMailCardStack, rejectedDealCardStack;
     public final ArrayList<Position> positions;
 
-    LinkedList<String[][]> s;
+    private final String[][] mailCards = new String[48][4];
+    private final String[][] dealCards = new String[20][8];
+
 
     ClassLoader cldr;
 
@@ -62,10 +64,42 @@ public class Controller
 
 
         init_positions();
+        readFile("resources/mailCards.csv", "Mail");
+        readFile("resources/dealCards.csv", "Deal");
         init_cardStacks();
         init_board();
     }
 
+    /**
+     * Reads a path
+     * @param path
+     * @param type
+     */
+
+    private void readFile(String path, String type) {
+        BufferedReader br = null;
+        String sCurrentLine;
+        try {
+            String fullPath = Objects.requireNonNull(cldr.getResource(path)).getPath();
+            br = new BufferedReader(new FileReader(fullPath));
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        int count = 0;
+        try {
+            br.readLine();
+            while ((sCurrentLine = br.readLine()) != null) {
+                if (type.equals("Mail")) {
+                    mailCards[count++] = sCurrentLine.split(",");
+                } else {
+                    dealCards[count++] = sCurrentLine.split(",");
+                }
+            }
+            br.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
 
     /**
@@ -79,22 +113,48 @@ public class Controller
     {
         // init mail cards
 
-        for (int i = 0; i < 8; i++)
-        {
-            mailCardStack.add(new PayTheNeighbor(0)); // amounts to be later determined
-            mailCardStack.add(new GetPaidByTheNeighbor(0));
-            mailCardStack.add(new Charity(0));
-            mailCardStack.add(new PayTheBill(0));
-            mailCardStack.add(new MoveToDB());
-            mailCardStack.add(new Advertisement(0));
+        for (String[] mailCard : mailCards) {
+            int amount = Integer.parseInt(mailCard[4]);
+            String url = mailCard[5];
+            String msg = mailCard[2];
+            String acceptTxt = mailCard[3];
+
+
+            switch (mailCard[1]) {
+                case "Αdvertisement" -> mailCardStack.add(new Advertisement(amount, msg, acceptTxt, url));
+                case "Bill" -> mailCardStack.add(new PayTheBill(amount, msg, acceptTxt, url));
+                case "Charity" -> mailCardStack.add(new Charity(amount, msg, acceptTxt, url));
+                case "PayTheNeighbor" -> mailCardStack.add(new PayTheNeighbor(amount, msg, acceptTxt, url));
+                case "MadMoney" -> mailCardStack.add(new GetPaidByTheNeighbor(amount, msg, acceptTxt, url));
+                case "MoveToDealBuyer" -> mailCardStack.add(new MoveToDB(0, msg, acceptTxt, url));
+                default -> throw new IllegalArgumentException("Invalid Card Type");
+            }
         }
 
         // init deal cards
 
-        for (int i = 0; i < 20; i++)
+        for (String[] dealCard : dealCards)
         {
-            dealCardStack.add(new DealCard(0, 0)); // amounts to be determined by the card
+            int buy = Integer.parseInt(dealCard[3]);
+            int sell = Integer.parseInt(dealCard[4]);
+
+            String url = dealCard[5];
+            String msg = dealCard[2];
+
+            dealCardStack.add(new DealCard(buy, sell, url, msg));
+
         }
+
+        // shuffle cards
+
+        Collections.shuffle(mailCardStack);
+        Collections.shuffle(dealCardStack);
+
+    }
+
+    public void nextTurn()
+    {
+        turn = (turn == p1 ? p2 : p1);
     }
 
     /**

@@ -2,6 +2,8 @@ package model.card.mailCards;
 
 import model.player.Player;
 
+import java.net.URL;
+
 /**
  * Pay the bank the given amount at the end of the month card
  * @version 1.0
@@ -17,9 +19,9 @@ public class PayTheBill extends MailCard {
      * @Postcondition A new instance of PayTheBill is created
      */
 
-    public PayTheBill(int amount)
+    public PayTheBill(int amount, String text, String acceptText, String imageURL)
     {
-        super(amount, "PayTheBill");
+        super(amount, text, acceptText, imageURL);
     }
 
     /**

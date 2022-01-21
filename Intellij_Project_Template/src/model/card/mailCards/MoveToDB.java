@@ -2,6 +2,8 @@ package model.card.mailCards;
 
 import model.player.Player;
 
+import java.net.URL;
+
 /**
  * Move to the next Deal/Buyer square
  * @version 1.0
@@ -16,8 +18,8 @@ public class MoveToDB extends MailCard {
      * @Postcondition A new instance of MoveToDB is created
      */
 
-    public MoveToDB() {
-        super(0, "Move to Deal/Buyer");
+    public MoveToDB(int amount, String text, String acceptText, String imageURL) {
+        super(0, text, acceptText,imageURL);
     }
 
     /**

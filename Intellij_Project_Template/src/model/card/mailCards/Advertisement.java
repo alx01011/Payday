@@ -2,6 +2,8 @@ package model.card.mailCards;
 
 import model.player.Player;
 
+import java.net.URL;
+
 /**
  * Sell the ad card for the given amount
  * @version 1.0
@@ -17,9 +19,9 @@ public class Advertisement extends MailCard
      * @Postcondition A new instance of Advertisement is created
      */
 
-    public Advertisement(int amount)
+    public Advertisement(int amount, String text, String acceptText, String imageURL)
     {
-        super(amount, "Advertisement");
+        super(amount, text, acceptText,imageURL);
     }
 
 

@@ -13,6 +13,8 @@ public class DealCard implements Card {
 
     private  int BuyPrice;
     private  int sellPrice;
+    private String imageURL;
+    private String text;
 
     /**
      * Create a new deal card instance
@@ -22,10 +24,12 @@ public class DealCard implements Card {
      * @Postcondition A new object is instantiated and fields are initialized
      */
 
-    public DealCard(int amount, int original_amount)
+    public DealCard(int amount, int original_amount, String imageURL, String text)
     {
         this.BuyPrice = amount;
         this.sellPrice = original_amount;
+        this.imageURL = imageURL;
+        this.text = text;
     }
 
     /**
@@ -57,6 +61,14 @@ public class DealCard implements Card {
         return sellPrice;
     }
 
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public String getText() {
+        return text;
+    }
+
     /**
      * Accept or decline the deal
      * @param p player - deal holder
@@ -68,6 +80,12 @@ public class DealCard implements Card {
     public void action(Player p)
     {
         // accept or decline the deal
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Deal " + getText() + " Buy price : " + getValue() + " Sell price : " + getSellPrice() + " image : " + getImageURL();
     }
 
 }

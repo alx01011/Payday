@@ -6,7 +6,6 @@ import model.player.Player;
 
 import javax.swing.*;
 import java.awt.*;
-import java.net.URL;
 import java.util.Objects;
 
 /**
@@ -155,10 +154,10 @@ public class GraphicsUI {
 
         base.add(logo);
 
-        tmp =  new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/pawn_blue.png"))).getImage().getScaledInstance(50, 50 ,Image.SCALE_SMOOTH);
+        tmp =  new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/pawn_blue.png"))).getImage().getScaledInstance(80, 80 ,Image.SCALE_SMOOTH);
         pawn_blue.setIcon(new ImageIcon(tmp));
 
-        tmp =  new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/pawn_yellow.png"))).getImage().getScaledInstance(50, 50 ,Image.SCALE_SMOOTH);
+        tmp =  new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/pawn_yellow.png"))).getImage().getScaledInstance(80, 80 ,Image.SCALE_SMOOTH);
         pawn_yellow.setIcon(new ImageIcon(tmp));
 
 
@@ -229,7 +228,7 @@ public class GraphicsUI {
         rollDice_p1 = new JButton("Roll Dice");
         dealCards_p1 = new JButton("My Deal Cards");
 
-        rollDice_p1.addActionListener(e -> update_dice(dice_p1));
+        rollDice_p1.addActionListener(e -> dice_listener(dice_p1, rollDice_p1));
 
         info_p1.add(rollDice_p1);
         info_p1.add(Box.createVerticalStrut(5));
@@ -250,7 +249,7 @@ public class GraphicsUI {
 
         endTurn_p1 = new JButton("End Turn");
 
-        endTurn_p1.addActionListener(e -> endTurn_listener(endTurn_p1, endTurn_p2, rollDice_p1, rollDice_p2));
+        endTurn_p1.addActionListener(e -> endTurn_listener());
 
         bottomButtons_p1.add(endTurn_p1);
 
@@ -308,6 +307,8 @@ public class GraphicsUI {
 
 
         rollDice_p2 = new JButton("Roll Dice");
+        rollDice_p2.addActionListener(e -> dice_listener(dice_p2, rollDice_p2));
+
         dealCards_p2 = new JButton("My Deal Cards");
 
         info_p2.add(rollDice_p2);
@@ -328,6 +329,8 @@ public class GraphicsUI {
         bottomButtons_p2.add(Box.createHorizontalStrut(10));
 
         endTurn_p2 = new JButton("End Turn");
+        endTurn_p2.addActionListener(e -> endTurn_listener());
+
 
         bottomButtons_p2.add(endTurn_p2);
 
@@ -351,20 +354,66 @@ public class GraphicsUI {
                 width / 4, height / 4 + 50);
         p2.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.YELLOW));
 
+            // disable second player buttons
+
+            if (cntrl.turn == cntrl.p1)
+        {
+            rollDice_p2.setEnabled(false);
+            endTurn_p2.setEnabled(false);
+            endTurn_p1.setEnabled(false);
+        }
+        else
+        {
+            rollDice_p1.setEnabled(false);
+            endTurn_p1.setEnabled(false);
+            endTurn_p2.setEnabled(false);
+        }
 
         base.add(p1);
         base.add(p2);
     }
 
-    private void endTurn_listener(JButton end, JButton start, JButton dice_end, JButton dice_start)
+    private void dice_listener(JLabel dice, JButton button)
     {
-        cntrl.turn = (cntrl.turn == cntrl.p1 ? cntrl.p2 : cntrl.p1);
+        cntrl.turn.getDice().rollDice();
 
-        end.setEnabled(false);
-        start.setEnabled(true);
+        button.setEnabled(false);
 
-        dice_end.setEnabled(false);
-        dice_start.setEnabled(true);
+        if (cntrl.turn == cntrl.p1)
+        {
+            endTurn_p1.setEnabled(true);
+        }
+        else
+        {
+            endTurn_p2.setEnabled(true);
+        }
+
+        int value = cntrl.turn.getDice().getValue();
+
+        Image tmp = new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/dice-" + value +".jpg"))).getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+
+        move_player(cntrl.turn, value);
+        update_info_box();
+
+        dice.setIcon(new ImageIcon(tmp));
+        dice.repaint();
+    }
+
+
+    private void endTurn_listener()
+    {
+        if (cntrl.turn == cntrl.p1)
+        {
+            endTurn_p1.setEnabled(false);
+            rollDice_p2.setEnabled(true);
+        }
+        else
+        {
+            endTurn_p2.setEnabled(false);
+            rollDice_p1.setEnabled(true);
+        }
+        cntrl.nextTurn();
+        update_info_box();
 
     }
 
@@ -386,7 +435,7 @@ public class GraphicsUI {
         gameInfo[1] = new JTextField(" " + cntrl.months_left + " Month(s) Left");
         gameInfo[1].setFont(new Font(null, Font.BOLD, 14));
 
-        gameInfo[2] = new JTextField(" Turn :");
+        gameInfo[2] = new JTextField(" Turn : " + cntrl.turn.getName());
         gameInfo[2].setFont(new Font(null, Font.BOLD, 14));
 
         gameInfo[3] = new JTextField(" -->A new game has started");
@@ -399,6 +448,16 @@ public class GraphicsUI {
         }
         base.add(infoBox);
     }
+
+    private void update_info_box()
+    {
+        gameInfo[2].setText(" Turn : " + cntrl.turn.getName());
+        gameInfo[2].repaint();
+        gameInfo[1].setText(" " + cntrl.months_left + " Month(s) Left");
+        gameInfo[1].repaint();
+
+    }
+
 
     /**
      * Adds the card buttons to the board
@@ -510,31 +569,32 @@ public class GraphicsUI {
                 System.exit(0));
     }
 
-    private void update_dice(JLabel dice)
-    {
-        cntrl.turn.getDice().rollDice();
-
-        int value = cntrl.turn.getDice().getValue();
-
-        Image tmp = new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/dice-" + value +".jpg"))).getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
-
-        move_player(cntrl.turn, value);
-
-        dice.setIcon(new ImageIcon(tmp));
-        dice.repaint();
-    }
-
-
     private void move_player(Player p, int value)
     {
-        int new_pos = cntrl.p1.getPosition() + value > 31 ? 0 : cntrl.p1.getPosition() + value;
+        int old_pos = cntrl.turn.getPosition();
+        int new_pos = cntrl.turn.getPosition() + value > 31 ? 0 : cntrl.turn.getPosition() + value;
 
-        if (p == cntrl.p1)
+        if (p == cntrl.p1) {
             tiles[cntrl.p1.getPosition()].remove(pawn_blue);
             tiles[cntrl.p1.getPosition()].repaint();
             tiles[new_pos].add(pawn_blue, BorderLayout.CENTER);
             tiles[new_pos].repaint();
             cntrl.p1.setPosition(new_pos);
+        }
+        else
+        {
+            tiles[cntrl.p2.getPosition()].remove(pawn_yellow);
+            tiles[cntrl.p2.getPosition()].repaint();
+            tiles[new_pos].add(pawn_yellow, BorderLayout.CENTER);
+            tiles[new_pos].repaint();
+            cntrl.p2.setPosition(new_pos);
+        }
+
+        if (old_pos + value > 31 && cntrl.p1.getPosition() == 0 && cntrl.p2.getPosition() == 0)
+        {
+            cntrl.months_left--;
+        }
+
     }
 
 
