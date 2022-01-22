@@ -27,9 +27,14 @@ public class Controller
     public Player p2;
     public Player turn;
     public int months_left;
-    public final LinkedList<Card> mailCardStack, dealCardStack;
-    public final LinkedList<Card> rejectedMailCardStack, rejectedDealCardStack;
+    public int jackpot_amount;
+
+    public final LinkedList<Card> mailCardStack;
+    public final LinkedList<Card> rejectedMailCardStack;
+    public final LinkedList<DealCard>  dealCardStack, rejectedDealCardStack;
     public final ArrayList<Position> positions;
+
+
 
     private final String[][] mailCards = new String[48][4];
     private final String[][] dealCards = new String[20][8];
@@ -49,6 +54,9 @@ public class Controller
         p1 = new Player("PLAYER 1");
         p2 = new Player("PLAYER 2");
 
+        p1.setNeighbor(p2);
+        p2.setNeighbor(p1);
+
         cldr = ClassLoader.getSystemClassLoader();
 
         positions = new ArrayList<>();
@@ -56,6 +64,8 @@ public class Controller
         dealCardStack = new LinkedList<>();
         rejectedMailCardStack = new LinkedList<>();
         rejectedDealCardStack = new LinkedList<>();
+
+
 
 
         // prompt for the months to be played
@@ -152,6 +162,18 @@ public class Controller
 
     }
 
+    public void update_balance(int amount)
+    {
+        int balance = turn.getBank_balance();
+        if (balance - amount < 0)
+        {
+            int loan = (int) Math.ceil(amount - balance);
+            turn.setBank_balance(turn.getBank_balance() + loan);
+            turn.setLoans(turn.getLoans() + loan);
+        }
+        turn.setBank_balance(turn.getBank_balance() - amount);
+    }
+
     public void nextTurn()
     {
         turn = (turn == p1 ? p2 : p1);
@@ -171,60 +193,60 @@ public class Controller
 
         // add mail positions
 
-        positions.add(new Mail(Days.NONE,cldr.getResource("resources/images/mc1.png"), -1, 1)); // 4 - draw1
-        positions.add(new Mail(Days.NONE,cldr.getResource("resources/images/mc1.png"), -1, 1));
-        positions.add(new Mail(Days.NONE,cldr.getResource("resources/images/mc1.png"), -1, 1));
-        positions.add(new Mail(Days.NONE,cldr.getResource("resources/images/mc1.png"), -1, 1));
-        positions.add(new Mail(Days.NONE,cldr.getResource("resources/images/mc2.png"), -1, 2)); // 4 - draw 2
-        positions.add(new Mail(Days.NONE,cldr.getResource("resources/images/mc2.png"), -1, 2));
-        positions.add(new Mail(Days.NONE,cldr.getResource("resources/images/mc2.png"), -1, 2));
-        positions.add(new Mail(Days.NONE,cldr.getResource("resources/images/mc2.png"), -1, 2));
+        positions.add(new Mail(Days.NONE,cldr.getResource("resources/images/mc1.png"), 1)); // 4 - draw1
+        positions.add(new Mail(Days.NONE,cldr.getResource("resources/images/mc1.png"),  1));
+        positions.add(new Mail(Days.NONE,cldr.getResource("resources/images/mc1.png"), 1));
+        positions.add(new Mail(Days.NONE,cldr.getResource("resources/images/mc1.png"), 1));
+        positions.add(new Mail(Days.NONE,cldr.getResource("resources/images/mc2.png"), 2)); // 4 - draw 2
+        positions.add(new Mail(Days.NONE,cldr.getResource("resources/images/mc2.png"), 2));
+        positions.add(new Mail(Days.NONE,cldr.getResource("resources/images/mc2.png"), 2));
+        positions.add(new Mail(Days.NONE,cldr.getResource("resources/images/mc2.png"), 2));
 
         // ---------------------------------------------------------------------------------------------------------------
 
         // add deal positions
 
-        positions.add(new Deal(Days.NONE, cldr.getResource("resources/images/deal.png"), -1));
-        positions.add(new Deal(Days.NONE, cldr.getResource("resources/images/deal.png"), -1));
-        positions.add(new Deal(Days.NONE, cldr.getResource("resources/images/deal.png"), -1));
-        positions.add(new Deal(Days.NONE, cldr.getResource("resources/images/deal.png"), -1));
-        positions.add(new Deal(Days.NONE, cldr.getResource("resources/images/deal.png"), -1));
+        positions.add(new Deal(Days.NONE, cldr.getResource("resources/images/deal.png"), 1));
+        positions.add(new Deal(Days.NONE, cldr.getResource("resources/images/deal.png"), 1));
+        positions.add(new Deal(Days.NONE, cldr.getResource("resources/images/deal.png"), 1));
+        positions.add(new Deal(Days.NONE, cldr.getResource("resources/images/deal.png"), 1));
+        positions.add(new Deal(Days.NONE, cldr.getResource("resources/images/deal.png"), 1));
 
         // ---------------------------------------------------------------------------------------------------------------
 
         // add sweepstakes positions
 
 
-        positions.add(new Sweepstakes(Days.NONE, cldr.getResource("resources/images/sweep.png"), -1));
-        positions.add(new Sweepstakes(Days.NONE, cldr.getResource("resources/images/sweep.png"), -1));
+        positions.add(new Sweepstakes(Days.NONE, cldr.getResource("resources/images/sweep.png"), 1));
+        positions.add(new Sweepstakes(Days.NONE, cldr.getResource("resources/images/sweep.png"), 1));
 
         // ---------------------------------------------------------------------------------------------------------------
 
 
         // add lottery positions
 
-        positions.add(new Lottery(Days.NONE, cldr.getResource("resources/images/lottery.png"), -1));
-        positions.add(new Lottery(Days.NONE, cldr.getResource("resources/images/lottery.png"), -1));
-        positions.add(new Lottery(Days.NONE, cldr.getResource("resources/images/lottery.png"), -1));
+        positions.add(new Lottery(Days.NONE, cldr.getResource("resources/images/lottery.png"), 1));
+        positions.add(new Lottery(Days.NONE, cldr.getResource("resources/images/lottery.png"), 1));
+        positions.add(new Lottery(Days.NONE, cldr.getResource("resources/images/lottery.png"), 1));
 
 
         // ---------------------------------------------------------------------------------------------------------------
 
         // add radio contest position
 
-        positions.add(new RadioContest(Days.NONE, cldr.getResource("resources/images/radio.png"), -1));
-        positions.add(new RadioContest(Days.NONE, cldr.getResource("resources/images/radio.png"), -1));
+        positions.add(new RadioContest(Days.NONE, cldr.getResource("resources/images/radio.png"), 1));
+        positions.add(new RadioContest(Days.NONE, cldr.getResource("resources/images/radio.png"), 1));
 
         // ---------------------------------------------------------------------------------------------------------------
 
         // add buyer positions
 
-        positions.add(new Buyer(Days.NONE, cldr.getResource("resources/images/buyer.png"), -1));
-        positions.add(new Buyer(Days.NONE, cldr.getResource("resources/images/buyer.png"), -1));
-        positions.add(new Buyer(Days.NONE, cldr.getResource("resources/images/buyer.png"), -1));
-        positions.add(new Buyer(Days.NONE, cldr.getResource("resources/images/buyer.png"), -1));
-        positions.add(new Buyer(Days.NONE, cldr.getResource("resources/images/buyer.png"), -1));
-        positions.add(new Buyer(Days.NONE, cldr.getResource("resources/images/buyer.png"), -1));
+        positions.add(new Buyer(Days.NONE, cldr.getResource("resources/images/buyer.png"), 1));
+        positions.add(new Buyer(Days.NONE, cldr.getResource("resources/images/buyer.png"), 1));
+        positions.add(new Buyer(Days.NONE, cldr.getResource("resources/images/buyer.png"), 1));
+        positions.add(new Buyer(Days.NONE, cldr.getResource("resources/images/buyer.png"), 1));
+        positions.add(new Buyer(Days.NONE, cldr.getResource("resources/images/buyer.png"), 1));
+        positions.add(new Buyer(Days.NONE, cldr.getResource("resources/images/buyer.png"), 1));
 
 
 
@@ -232,16 +254,16 @@ public class Controller
 
         // add family casino positions
 
-        positions.add(new FamilyCasino(Days.NONE, cldr.getResource("resources/images/casino.png"), -1));
-        positions.add(new FamilyCasino(Days.NONE, cldr.getResource("resources/images/casino.png"), -1));
+        positions.add(new FamilyCasino(Days.NONE, cldr.getResource("resources/images/casino.png"), 1));
+        positions.add(new FamilyCasino(Days.NONE, cldr.getResource("resources/images/casino.png"), 1));
 
 
         // ---------------------------------------------------------------------------------------------------------------
 
         // add yard sales position
 
-        positions.add(new YardSale(Days.NONE, cldr.getResource("resources/images/yard.png"), -1));
-        positions.add(new YardSale(Days.NONE, cldr.getResource("resources/images/yard.png"), -1));
+        positions.add(new YardSale(Days.NONE, cldr.getResource("resources/images/yard.png"), 1));
+        positions.add(new YardSale(Days.NONE, cldr.getResource("resources/images/yard.png"), 1));
 
 
         // ---------------------------------------------------------------------------------------------------------------
@@ -255,12 +277,12 @@ public class Controller
         Collections.shuffle(positions); // shuffle positions
 
         positions.get(0).setDay(Days.Monday);
-        positions.get(0).setDay_index(1);
+        positions.get(0).setAmount(1);
 
         for (int i = 1; i < positions.size(); i++)
         {
             positions.get(i).setDay(Days.values()[i % 7]);
-            positions.get(i).setDay_index(i + 1);
+            //positions.get(i).setAmount(i + 1);
         }
 
 
@@ -273,8 +295,6 @@ public class Controller
     public static void main(String[] args)
     {
         Controller ctrl = new Controller();
-
-        ctrl.init_board();
 
     }
 

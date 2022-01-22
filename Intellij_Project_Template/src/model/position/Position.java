@@ -14,7 +14,7 @@ import java.net.URL;
 public abstract class Position
 {
     private Days day;
-    private int day_index;
+    private int amount;
     private final URL imageURL;
 
 
@@ -23,16 +23,16 @@ public abstract class Position
      * @type Constructor
      * @param day position day
      * @param imageURL image location
-     * @param day_index position on the board
+     * @param amount position on the board
      * @Precondition day and URL are not null and index is positive or zero
      * @Postcondition A new instance of Position is created
      */
 
-        public Position(Days day, URL imageURL, int day_index)
+        public Position(Days day, URL imageURL, int amount)
     {
         this.day = day;
         this.imageURL = imageURL;
-        this.day_index = day_index;
+        this.amount = amount;
     }
 
     /**
@@ -79,13 +79,13 @@ public abstract class Position
      * @Postcondition day_index is returned
      */
 
-    public int getDay_index() {
-        return day_index;
+    public int getAmount() {
+        return amount;
     }
 
-    public void setDay_index(int day_index)
+    public void setAmount(int amount)
     {
-        this.day_index = day_index;
+        this.amount = amount;
     }
 
     /**

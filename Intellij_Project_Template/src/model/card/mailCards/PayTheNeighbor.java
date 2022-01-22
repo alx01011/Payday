@@ -34,5 +34,21 @@ public class PayTheNeighbor extends MailCard {
     @Override
     public void action(Player p) {
         Player neighbor = p.getNeighbor();
+
+        int amount = super.getValue();
+        int balance = p.getBank_balance();
+
+        if (balance - super.getValue() < 0)
+        {
+            int loan = (amount - balance) + ((amount - balance)% 1000);
+            p.setBank_balance(p.getBank_balance() + loan);
+            p.setLoans(p.getLoans() + loan);
+            p.setBank_balance(p.getBank_balance() - amount);
+        }
+        else
+        {
+           p.setBank_balance(p.getBank_balance() - amount);
+           neighbor.setBank_balance(neighbor.getBank_balance() + amount);
+        }
     }
 }

@@ -15,8 +15,6 @@ import java.net.URL;
 
 public class Mail extends Position {
 
-    private final int cardAmount;
-
     /**
      * Creates a new message position instance
      * @type Constructor
@@ -26,9 +24,8 @@ public class Mail extends Position {
      * @Precondition day and URL are not null and index is positive or zero
      * @Postcondition A new instance of Mail is created
      */
-    public Mail(Days day, URL imageURL, int index, int cardAmount) {
-        super(day, imageURL, index);
-        this.cardAmount = cardAmount;
+    public Mail(Days day, URL imageURL, int cardAmount) {
+        super(day, imageURL, cardAmount);
     }
 
     /**
@@ -44,10 +41,5 @@ public class Mail extends Position {
         MailCard mail; // random mail card
     }
 
-
-    public int getCardAmount()
-    {
-        return cardAmount;
-    }
 
 }

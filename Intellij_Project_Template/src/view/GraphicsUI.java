@@ -2,10 +2,20 @@ package view;
 
 
 import controller.Controller;
+import model.card.Card;
+import model.card.dealCards.DealCard;
+import model.card.mailCards.Charity;
+import model.card.mailCards.MailCard;
+import model.card.mailCards.MoveToDB;
+import model.card.mailCards.PayTheNeighbor;
 import model.player.Player;
+import model.position.*;
+
 
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
+import java.util.Collections;
 import java.util.Objects;
 
 /**
@@ -50,6 +60,7 @@ public class GraphicsUI {
     Controller controller;
     Image bg;  // used for different images
     ClassLoader cldr; // class loader to get the path to images
+    Position cpos;
 
     private SundayFootballDayUI sundayFootballDayUI;
     private ThursdayRiseInCryptoUI thursdayRiseInCryptoUI;
@@ -57,6 +68,8 @@ public class GraphicsUI {
 
     private final int width;
     private final int height;
+    private int p_turn_num_lot;
+    private int p2_num_lot;
 
     private final int MAX_POSITION = 32; // 32 positions
 
@@ -76,7 +89,7 @@ public class GraphicsUI {
         cntrl.p1.setName(JOptionPane.showInputDialog("Player A : Name"));
         cntrl.p2.setName(JOptionPane.showInputDialog("Player B : Name"));
 
-        Object[] options = { 1, 2, 3};
+        Object[] options = {1, 2, 3};
         cntrl.months_left = Integer.parseInt(JOptionPane.showInputDialog(null, "Choose", "Menu", JOptionPane.PLAIN_MESSAGE, null, options, options[0]).toString());
 
         frame = new JFrame("Payday");
@@ -97,8 +110,7 @@ public class GraphicsUI {
         p1_data = new JTextField[3]; // money / loan /  bills
         p2_data = new JTextField[3]; // money / loan /  bills
 
-        for (int i = 0; i < p1_data.length; i++)
-        {
+        for (int i = 0; i < p1_data.length; i++) {
             p1_data[i] = new JTextField();
             p2_data[i] = new JTextField();
         }
@@ -145,19 +157,19 @@ public class GraphicsUI {
 
         Image tmp = new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/logo.png"))).getImage();
 
-        tmp = tmp.getScaledInstance(width * 3 / 5 + 50 , height / 6 , Image.SCALE_SMOOTH);
+        tmp = tmp.getScaledInstance(width * 3 / 5 + 50, height / 6, Image.SCALE_SMOOTH);
 
 
         logo.setIcon(new ImageIcon(tmp));
 
-        logo.setBounds(new Rectangle(new Point(0, 0),logo.getPreferredSize()));
+        logo.setBounds(new Rectangle(new Point(0, 0), logo.getPreferredSize()));
 
         base.add(logo);
 
-        tmp =  new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/pawn_blue.png"))).getImage().getScaledInstance(80, 80 ,Image.SCALE_SMOOTH);
+        tmp = new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/pawn_blue.png"))).getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
         pawn_blue.setIcon(new ImageIcon(tmp));
 
-        tmp =  new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/pawn_yellow.png"))).getImage().getScaledInstance(80, 80 ,Image.SCALE_SMOOTH);
+        tmp = new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/pawn_yellow.png"))).getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
         pawn_yellow.setIcon(new ImageIcon(tmp));
 
 
@@ -189,8 +201,7 @@ public class GraphicsUI {
      * @Postcondition panels are created
      */
 
-    private void create_player_panels()
-        {
+    private void create_player_panels() {
         JTextField p1_name = new JTextField(cntrl.p1.getName());
 
         p1_name.setFont(new Font(null, Font.BOLD, 16));
@@ -228,6 +239,8 @@ public class GraphicsUI {
         rollDice_p1 = new JButton("Roll Dice");
         dealCards_p1 = new JButton("My Deal Cards");
 
+        dealCards_p1.addActionListener(e -> myDealCards_listener_p1());
+
         rollDice_p1.addActionListener(e -> dice_listener(dice_p1, rollDice_p1));
 
         info_p1.add(rollDice_p1);
@@ -235,7 +248,6 @@ public class GraphicsUI {
 
         info_p1.add(dealCards_p1);
         info_p1.add(Box.createVerticalStrut(5));
-
 
 
         JDesktopPane bottomButtons_p1 = new JDesktopPane();
@@ -305,18 +317,18 @@ public class GraphicsUI {
         }
 
 
-
         rollDice_p2 = new JButton("Roll Dice");
         rollDice_p2.addActionListener(e -> dice_listener(dice_p2, rollDice_p2));
 
         dealCards_p2 = new JButton("My Deal Cards");
+        dealCards_p2.addActionListener(e -> myDealCards_listener_p2());
+
 
         info_p2.add(rollDice_p2);
         info_p2.add(Box.createVerticalStrut(5));
 
         info_p2.add(dealCards_p2);
         info_p2.add(Box.createVerticalStrut(5));
-
 
 
         JDesktopPane bottomButtons_p2 = new JDesktopPane();
@@ -350,20 +362,17 @@ public class GraphicsUI {
         p2.add(dice_p2, BorderLayout.EAST);
 
 
-        p2.setBounds(width * 2 / 3 + 50, height - height / 3 - (height >= 1000 ? height / 23 : height / 15)  ,
+        p2.setBounds(width * 2 / 3 + 50, height - height / 3 - (height >= 1000 ? height / 23 : height / 15),
                 width / 4, height / 4 + 50);
         p2.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.YELLOW));
 
-            // disable second player buttons
+        // disable second player buttons
 
-            if (cntrl.turn == cntrl.p1)
-        {
+        if (cntrl.turn == cntrl.p1) {
             rollDice_p2.setEnabled(false);
             endTurn_p2.setEnabled(false);
             endTurn_p1.setEnabled(false);
-        }
-        else
-        {
+        } else {
             rollDice_p1.setEnabled(false);
             endTurn_p1.setEnabled(false);
             endTurn_p2.setEnabled(false);
@@ -373,42 +382,256 @@ public class GraphicsUI {
         base.add(p2);
     }
 
-    private void dice_listener(JLabel dice, JButton button)
-    {
+    private void dice_listener(JLabel dice, JButton button) {
+        boolean normal = true;
         cntrl.turn.getDice().rollDice();
 
         button.setEnabled(false);
 
-        if (cntrl.turn == cntrl.p1)
-        {
+        if (cntrl.turn == cntrl.p1) {
             endTurn_p1.setEnabled(true);
-        }
-        else
-        {
+        } else {
             endTurn_p2.setEnabled(true);
         }
 
         int value = cntrl.turn.getDice().getValue();
 
-        Image tmp = new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/dice-" + value +".jpg"))).getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
+        Image tmp = new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/dice-" + value + ".jpg"))).getImage().getScaledInstance(80, 80, Image.SCALE_SMOOTH);
 
-        move_player(cntrl.turn, value);
+        if (cpos instanceof Sweepstakes) {
+            cntrl.turn.setBank_balance(cntrl.turn.getDice().getValue() * 1000 + cntrl.turn.getBank_balance());
+            cpos = null;
+            normal = false;
+        }
+
+        if (normal) {
+            if (value == 6)
+            {
+                cntrl.turn.setBank_balance(cntrl.jackpot_amount + cntrl.turn.getBank_balance());
+                cntrl.jackpot_amount = 0;
+                jackpot_amount.setText("Jackpot: 0 Euros");
+            }
+
+            move_player(cntrl.turn, value);
+            check_position();
+        }
+
         update_info_box();
-
         dice.setIcon(new ImageIcon(tmp));
         dice.repaint();
     }
 
+    private void check_position() {
 
-    private void endTurn_listener()
-    {
-        if (cntrl.turn == cntrl.p1)
+        if (cntrl.turn.getPosition() - 1 < 0) // start
         {
+            cpos = null;
+            return;
+        }
+
+        Position p = cntrl.positions.get(cntrl.turn.getPosition() - 1);
+
+        cpos = p;
+
+        if (p instanceof Buyer) {
+            System.err.println("Buyer");
+        }
+
+        if (p instanceof Deal) {
+            getDealCard.setEnabled(true);
+            disable_turn();
+        }
+
+        if (p instanceof Mail) {
+            getMailCard.setEnabled(true);
+            disable_turn();
+        }
+
+        if (p instanceof Sweepstakes) {
+            disable_turn();
+            if (cntrl.turn == cntrl.p1) {
+                rollDice_p1.setEnabled(true);
+            } else {
+                rollDice_p2.setEnabled(true);
+            }
+        }
+
+        if (p instanceof Lottery) {
+            p_turn_num_lot = Integer.parseInt(JOptionPane.showInputDialog(cntrl.turn.getName() + " choose a number between 1 - 6"));
+            p2_num_lot = Integer.parseInt(JOptionPane.showInputDialog(cntrl.turn.getNeighbor().getName() + " choose a number between 1 - 6"));
+
+            while (true) {
+                cntrl.turn.getDice().rollDice();
+                cntrl.turn.getNeighbor().getDice().rollDice();
+                if (cntrl.turn.getDice().getValue() == p_turn_num_lot) {
+                    JOptionPane.showMessageDialog(null, "Player " + cntrl.turn.getName()
+                            + " has won 1000 EUROS");
+                    cntrl.turn.setBank_balance(cntrl.turn.getBank_balance() + 1000);
+                    break;
+                }
+
+                if (cntrl.turn.getNeighbor().getDice().getValue() == p2_num_lot) {
+                    JOptionPane.showMessageDialog(null, "Player " + cntrl.turn.getNeighbor().getName()
+                            + " has won 1000 EUROS");
+                    cntrl.turn.getNeighbor().setBank_balance(cntrl.turn.getNeighbor().getBank_balance() + 1000);
+                    break;
+                }
+            }
+        }
+
+    }
+
+    private void enable_dice() {
+        rollDice_p1.setEnabled(true);
+        rollDice_p2.setEnabled(true);
+    }
+
+    private void disable_turn() {
+        if (cntrl.turn == cntrl.p1) {
+            endTurn_p1.setEnabled(false);
+        } else {
+            endTurn_p2.setEnabled(false);
+        }
+    }
+
+    private void enable_turn() {
+        if (cntrl.turn == cntrl.p1) {
+            endTurn_p1.setEnabled(true);
+        } else {
+            endTurn_p2.setEnabled(true);
+        }
+    }
+
+    private void getDealCard_listener() {
+
+        if (cntrl.dealCardStack.size() == 0) {
+            Collections.shuffle(cntrl.rejectedDealCardStack); // shuffle rejected card stack
+            cntrl.dealCardStack.addAll(cntrl.rejectedDealCardStack); // add all to current stack
+            cntrl.rejectedDealCardStack.clear(); // clear rejected
+        }
+
+
+        Object[] options = {"Accept Deal", "Ignore Deal"};
+
+        DealCard draw = cntrl.dealCardStack.getFirst();
+
+        URL tmp = cldr.getResource("resources/images/" + draw.getImageURL());
+        Image image = new ImageIcon(Objects.requireNonNull(tmp)).getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+
+        int ignore_accept = JOptionPane.showOptionDialog(null,
+                draw.getText() + "\nΤιμή Αγοράς: " + draw.getValue() + " Ευρώ \nΤιμή Πώλησης: " + draw.getSellPrice() + " Ευρώ \n",
+                "Deal",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.PLAIN_MESSAGE,
+                new ImageIcon(image),
+                options,
+                options[0]);
+
+        if (ignore_accept == 0) // accept deal
+        {
+            cntrl.turn.dealCards.add(draw);
+            cntrl.update_balance(draw.getValue());
+            //update_info_box();
+        }
+        cntrl.rejectedDealCardStack.add(draw);
+
+        cntrl.dealCardStack.remove(draw);
+
+        System.err.println(draw);
+
+        getDealCard.setEnabled(false);
+        enable_turn();
+
+        // handle empty stack
+
+    }
+
+    private void getMailCard_listener() {
+        int amount = cntrl.positions.get(cntrl.turn.getPosition() - 1).getAmount();
+
+
+
+        if (cntrl.mailCardStack.size() < amount) // not enough cards
+        {
+            Collections.shuffle(cntrl.rejectedMailCardStack); // shuffle rejected card stack
+            cntrl.mailCardStack.addAll(cntrl.rejectedMailCardStack); // add all to current stack
+            cntrl.rejectedMailCardStack.clear(); // clear rejected
+        }
+
+        System.out.println("Position : " + cntrl.positions.get(cntrl.turn.getPosition() - 1));
+        System.out.println("Amount : " + amount);
+
+        for (int i = 0; i < amount; i++) {
+            Card tmp = cntrl.mailCardStack.getFirst();
+
+            check_mail_card((MailCard) tmp);
+
+            cntrl.turn.mailCards.add(tmp);
+
+            cntrl.rejectedMailCardStack.add(tmp);
+            cntrl.mailCardStack.remove(tmp);
+
+            System.err.println(tmp);
+        }
+
+        getMailCard.setEnabled(false);
+        enable_turn();
+    }
+
+    /**
+     * Displays the mail card and performs its action
+     */
+
+    private void check_mail_card(MailCard card) {
+
+        Object options[] = {card.getAcceptText()};
+
+        URL tmp = cldr.getResource("resources/images/" + card.getImageURL());
+        Image image = new ImageIcon(Objects.requireNonNull(tmp)).getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+
+        JOptionPane.showOptionDialog(null, card.getText(), "Mail", JOptionPane.YES_OPTION,
+                JOptionPane.PLAIN_MESSAGE, new ImageIcon(image), options, card.getAcceptText());
+
+        card.action(cntrl.turn);
+
+        if (card instanceof Charity)
+        {
+            cntrl.jackpot_amount += card.getValue();
+            jackpot_amount.setText("Jackpot: " + cntrl.jackpot_amount + " Euros");
+        }
+
+        if (card instanceof MoveToDB)
+        {
+            int pos = cntrl.turn.getPosition();
+
+            while (cntrl.positions.get(pos % 31) instanceof Buyer || cntrl.positions.get(pos % 31) instanceof Deal)
+            {
+                pos++;
+            }
+
+            if (cntrl.turn == cntrl.p1) {
+                tiles[cntrl.p1.getPosition()].remove(pawn_blue);
+                tiles[cntrl.p1.getPosition()].repaint();
+                tiles[pos % 31].add(pawn_blue, BorderLayout.CENTER);
+            } else {
+                tiles[cntrl.p2.getPosition()].remove(pawn_yellow);
+                tiles[cntrl.p2.getPosition()].repaint();
+                tiles[pos % 31].add(pawn_yellow, BorderLayout.CENTER);
+            }
+            tiles[pos % 31].repaint();
+            cntrl.turn.setPosition(pos % 31);
+
+
+        }
+
+    }
+
+
+    private void endTurn_listener() {
+        if (cntrl.turn == cntrl.p1) {
             endTurn_p1.setEnabled(false);
             rollDice_p2.setEnabled(true);
-        }
-        else
-        {
+        } else {
             endTurn_p2.setEnabled(false);
             rollDice_p1.setEnabled(true);
         }
@@ -417,14 +640,35 @@ public class GraphicsUI {
 
     }
 
+    private void myDealCards_listener_p1() {
+        for (int i = 0; i < cntrl.p1.dealCards.size(); i++) {
+            URL tmp = cldr.getResource("resources/images/" + cntrl.p1.dealCards.get(i).getImageURL());
+            Image image = new ImageIcon(Objects.requireNonNull(tmp)).getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+
+            JOptionPane.showMessageDialog(null, cntrl.p1.dealCards.get(i).getText(), "Deal Card", JOptionPane.PLAIN_MESSAGE,
+                    new ImageIcon(image)
+            );
+        }
+    }
+
+    private void myDealCards_listener_p2() {
+        for (int i = 0; i < cntrl.p2.dealCards.size(); i++) {
+            URL tmp = cldr.getResource("resources/images/" + cntrl.p2.dealCards.get(i).getImageURL());
+            Image image = new ImageIcon(tmp).getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+
+            JOptionPane.showMessageDialog(null, cntrl.p2.dealCards.get(i).getText(), "Deal Card", JOptionPane.PLAIN_MESSAGE,
+                    new ImageIcon(image)
+            );
+        }
+    }
+
 
     /**
      * Adds the info box to the frame
      */
 
-    private void info_box()
-    {
-        infoBox.setBounds(width * 2 / 3 + 50, height - height / 3 - height / 3 , width / 4, height / 6);
+    private void info_box() {
+        infoBox.setBounds(width * 2 / 3 + 50, height - height / 3 - height / 3, width / 4, height / 6);
         infoBox.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.BLACK));
         infoBox.setLayout(new GridLayout(4, 0));
         infoBox.setBorder(null);
@@ -449,12 +693,26 @@ public class GraphicsUI {
         base.add(infoBox);
     }
 
-    private void update_info_box()
-    {
+    private void update_info_box() {
         gameInfo[2].setText(" Turn : " + cntrl.turn.getName());
         gameInfo[2].repaint();
         gameInfo[1].setText(" " + cntrl.months_left + " Month(s) Left");
         gameInfo[1].repaint();
+        p1_data[0].setText("  Money : " + cntrl.p1.getBank_balance());
+        p1_data[0].repaint();
+        p2_data[0].setText("  Money : " + cntrl.p2.getBank_balance());
+        p2_data[0].repaint();
+
+        p1_data[1].setText("  Loans : " + cntrl.p1.getLoans());
+        p1_data[1].repaint();
+        p2_data[1].setText("  Loans : " + cntrl.p2.getLoans());
+        p2_data[1].repaint();
+
+        p1_data[2].setText("  Bills : " + cntrl.p1.getBills());
+        p1_data[2].repaint();
+        p2_data[2].setText("  Bills : " + cntrl.p2.getBills());
+        p2_data[2].repaint();
+
 
     }
 
@@ -463,8 +721,7 @@ public class GraphicsUI {
      * Adds the card buttons to the board
      */
 
-    private void card_buttons()
-    {
+    private void card_buttons() {
         Image tmp = new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/mailCard.png"))).getImage()
                 .getScaledInstance(180, 90, Image.SCALE_SMOOTH);
         getMailCard.setIcon(new ImageIcon(tmp));
@@ -474,12 +731,17 @@ public class GraphicsUI {
         getDealCard.setIcon(new ImageIcon(tmp));
         // add action listeners
 
+        getDealCard.addActionListener(e -> getDealCard_listener());
+        getMailCard.addActionListener(e -> getMailCard_listener());
+
+        getDealCard.setEnabled(false);
+        getMailCard.setEnabled(false);
+
         mailCard.add(getMailCard);
         dealCard.add(getDealCard);
 
         mailCard.setBounds(width * 2 / 3 + 50, height - height / 3 - height / 6 + 10, 180, 100);
-        dealCard.setBounds(width * 2 / 3 + 50 + 250, height - height / 3 - height / 6 + 10, 180,  100);
-
+        dealCard.setBounds(width * 2 / 3 + 50 + 250, height - height / 3 - height / 6 + 10, 180, 100);
 
 
         base.add(mailCard);
@@ -493,15 +755,14 @@ public class GraphicsUI {
      */
 
 
-    private void jackpot_position()
-    {
+    private void jackpot_position() {
         Image tmp = new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/jackpot.png"))).getImage().
-                getScaledInstance(200, 90 , Image.SCALE_SMOOTH);
+                getScaledInstance(200, 90, Image.SCALE_SMOOTH);
 
         jackpot.setBg(tmp);
 
         jackpot.setLayout(new BorderLayout());
-        jackpot.setBounds(width * 2 / 5 , height - height / 3 -height / 23 + 200, 200, 100);
+        jackpot.setBounds(width * 2 / 5, height - height / 3 - height / 23 + 200, 200, 100);
 
         jackpot_amount.setText("Jackpot : ");
 
@@ -513,9 +774,8 @@ public class GraphicsUI {
         base.add(jackpot);
     }
 
-    private void board_positions()
-    {
-        board.setBounds(10, logo.getHeight() ,logo.getWidth(), height - logo.getHeight() );
+    private void board_positions() {
+        board.setBounds(10, logo.getHeight(), logo.getWidth(), height - logo.getHeight());
         board.setSize(logo.getWidth() - 10, height - height / 4 + 30);
         board.setOpaque(false);
         board.setLayout(new GridLayout(0, 7));
@@ -530,7 +790,7 @@ public class GraphicsUI {
         tileInfo.setBackground(Color.YELLOW);
         pos[0].add(tileInfo, BorderLayout.NORTH);
         board.add(pos[0]);
-        Image tmp = new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/start.png"))).getImage().getScaledInstance(width / 11, height / 7 ,Image.SCALE_SMOOTH);
+        Image tmp = new ImageIcon(Objects.requireNonNull(cldr.getResource("resources/images/start.png"))).getImage().getScaledInstance(width / 11, height / 7, Image.SCALE_SMOOTH);
         tiles[0].setBg(tmp);
         pos[0].add(tiles[0]);
 
@@ -538,14 +798,13 @@ public class GraphicsUI {
         tiles[0].add(pawn_blue, BorderLayout.CENTER);
         tiles[0].add(pawn_yellow, BorderLayout.EAST);
 
-        for (int i = 1; i < MAX_POSITION; i++)
-        {
+        for (int i = 1; i < MAX_POSITION; i++) {
             tileInfo = new JTextField();
             tiles[i] = new customPanel();
 
             pos[i] = new JDesktopPane();
             pos[i].setLayout(new BorderLayout());
-            tileInfo.setText(cntrl.positions.get(i - 1).getDay().toString() + " " + cntrl.positions.get(i - 1).getDay_index());
+            tileInfo.setText(cntrl.positions.get(i - 1).getDay().toString() + " " + cntrl.positions.get(i - 1).getAmount());
             tileInfo.setBackground(Color.YELLOW);
             pos[i].add(tileInfo, BorderLayout.NORTH);
             tmp = new ImageIcon(Objects.requireNonNull(cntrl.positions.get(i - 1).getImageURL())).getImage().getScaledInstance(width / 11, height / 7, Image.SCALE_SMOOTH);
@@ -563,16 +822,43 @@ public class GraphicsUI {
      * Adds actions to each menu button
      */
 
-    private void configure_menu_options()
-    {
+    private void configure_menu_options() {
         exit.addActionListener(l ->
                 System.exit(0));
     }
 
-    private void move_player(Player p, int value)
+    private void payday()
     {
+        cntrl.turn.setBank_balance(cntrl.turn.getBank_balance() + 3500);
+        cntrl.turn.getNeighbor().setBank_balance(cntrl.turn.getBank_balance() + 3500);
+
+        cntrl.turn.mailCards.clear();
+        cntrl.turn.getNeighbor().mailCards.clear();
+
+        if (cntrl.months_left == 1)
+        {
+            cntrl.turn.dealCards.clear();
+        }
+
+    }
+
+    private void move_player(Player p, int value) {
         int old_pos = cntrl.turn.getPosition();
-        int new_pos = cntrl.turn.getPosition() + value > 31 ? 0 : cntrl.turn.getPosition() + value;
+        int new_pos = 0;
+
+        if (old_pos == 31) {
+            new_pos = 0;
+
+            if(cntrl.turn.getNeighbor().getPosition() == 31)
+            {
+                payday();
+            }
+
+        } else if (old_pos + cntrl.turn.getDice().getValue() > 31) {
+            new_pos = 31;
+        } else {
+            new_pos = old_pos + cntrl.turn.getDice().getValue();
+        }
 
         if (p == cntrl.p1) {
             tiles[cntrl.p1.getPosition()].remove(pawn_blue);
@@ -580,9 +866,7 @@ public class GraphicsUI {
             tiles[new_pos].add(pawn_blue, BorderLayout.CENTER);
             tiles[new_pos].repaint();
             cntrl.p1.setPosition(new_pos);
-        }
-        else
-        {
+        } else {
             tiles[cntrl.p2.getPosition()].remove(pawn_yellow);
             tiles[cntrl.p2.getPosition()].repaint();
             tiles[new_pos].add(pawn_yellow, BorderLayout.CENTER);
@@ -590,8 +874,7 @@ public class GraphicsUI {
             cntrl.p2.setPosition(new_pos);
         }
 
-        if (old_pos + value > 31 && cntrl.p1.getPosition() == 0 && cntrl.p2.getPosition() == 0)
-        {
+        if (old_pos + value > 31 && cntrl.p1.getPosition() == 0 && cntrl.p2.getPosition() == 0) {
             cntrl.months_left--;
         }
 
@@ -618,8 +901,7 @@ public class GraphicsUI {
 
         private Image bg;
 
-        public void setBg(Image bg)
-        {
+        public void setBg(Image bg) {
             this.bg = bg;
         }
 

@@ -34,6 +34,14 @@ public class Charity extends MailCard {
 
     @Override
     public void action(Player p) {
+        int amount = super.getValue();
+        int balance = p.getBank_balance();
+
+        if (balance - amount < 0) {
+            int loan = (amount - balance) + ((amount - balance) % 1000);
+            p.setBank_balance(p.getBank_balance() + loan);
+            p.setLoans(p.getLoans() + loan);
+        }
 
     }
 }

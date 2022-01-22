@@ -1,6 +1,10 @@
 package model.player;
 
+import model.card.Card;
+import model.card.dealCards.DealCard;
 import model.dice.Dice;
+
+import java.util.LinkedList;
 
 /**
  * Player
@@ -18,6 +22,9 @@ public class Player
     private       Player neighbor;
     private final Dice   dice;
 
+    public final LinkedList<Card> mailCards;
+    public final LinkedList<DealCard> dealCards;
+
     /**
      * Create a new instance of player and initializes some values
      * @type Constructor
@@ -34,6 +41,9 @@ public class Player
         this.bills = 0;
         this.position       = 0; // original position at start square
         this.dice           = new Dice();
+
+        dealCards = new LinkedList<>();
+        mailCards = new LinkedList<>();
     }
 
     /**

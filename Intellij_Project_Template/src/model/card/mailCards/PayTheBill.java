@@ -34,6 +34,6 @@ public class PayTheBill extends MailCard {
 
     @Override
     public void action(Player p) {
-
+        p.setBills(p.getBills() + super.getValue());
     }
 }

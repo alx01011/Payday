@@ -35,6 +35,6 @@ public class Advertisement extends MailCard
 
     @Override
     public void action(Player p) {
-
+        p.setBank_balance(p.getBank_balance() + super.getValue());
     }
 }
